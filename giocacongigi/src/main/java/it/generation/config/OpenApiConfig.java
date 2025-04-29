@@ -15,17 +15,17 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         final String securitySchemeName = "bearerAuth";
         return new OpenAPI()
-            .info(new Info()
-                .title("API Example")
-                .version("1.0")
-                .description("Queste API richiedono autenticazione per alcune rotte"))
-            .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
-            .components(new Components()
-                .addSecuritySchemes(securitySchemeName,
-                    new SecurityScheme()
-                        .name(securitySchemeName)
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")));
+                .info(new Info()
+                        .title("API Example")
+                        .version("1.0")
+                        .description("Queste API richiedono autenticazione per alcune rotte"))
+                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .components(new Components()
+                        .addSecuritySchemes(securitySchemeName,
+                                new SecurityScheme()
+                                        .name(securitySchemeName)
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")));
     }
 }
