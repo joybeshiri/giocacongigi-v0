@@ -15,7 +15,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils        jwtUtils;
 
-    @Autowired 
+    @Autowired
     public UserService(UserRepository repository, PasswordEncoder encoder, JwtUtils utils) {
         this.userRepository  = repository;
         this.passwordEncoder = encoder;
@@ -24,7 +24,7 @@ public class UserService {
 
     public RegisterResult register(RegisterRequest request) {
         if (this.userRepository.findByEmail(request.email).isPresent()) {
-            return RegisterResult.USER_ALREADY_EXISTS;        
+            return RegisterResult.USER_ALREADY_EXISTS;
         }
 
         try {
@@ -46,7 +46,10 @@ public class UserService {
 
         if (user.isPresent()) {
             if (passwordEncoder.matches(rawPassword, user.get().getPassword())) {
-                token = Optional.ofNullable(jwtUtils.generateToken(user.get().getEmail()));
+                // Ottieni il ruolo dell'utente
+                String role = user.get().getRole();
+                // Passa email e ruolo al metodo generateToken
+                token = Optional.ofNullable(jwtUtils.generateToken(user.get().getEmail(), role));
             }
         }
         return token;
