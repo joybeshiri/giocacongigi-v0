@@ -24,8 +24,10 @@ function showPage(page) {
     break;
     case "admin":
       $('#btn-logout').show();
-    
     break;
+    case "create-event":
+    $('#btn-logout').show();
+    break; 
   }
 
   $("#page-"+page).show();
@@ -147,6 +149,7 @@ $(document).ready(function () {
   $('#btn-login').click(function(event)    { doClick(event, this.id); });
   $('#btn-register').click(function(event) { doClick(event, this.id); });
   $('#btn-logout').click(function(event)   { doClick(event, this.id); });
+  $('#btn-create-event').click(function(event)   { doClick(event, this.id); });
 
   $('#login-form').submit(function (e) {
     e.preventDefault();
