@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-GiocacongigiApplication<giocacongigi>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "it.generation.GiocacongigiApplication",
+            "projectName": "giocacongigi",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
