@@ -10,7 +10,7 @@ function showPage(page) {
   $('form').each(function() {
     this.reset();
   });
-
+ // cambio pagina
   switch (page) {
     case "home":
       break;
@@ -35,7 +35,7 @@ function showPage(page) {
 
   $("#page-" + page).show();
 }
-
+// funzione per stampare gli eventi prensenti nel db e non scaduti
 function visualizzaEventi(view = "") {
   const token = localStorage.getItem("token");
   if (!token || !currentUser) return showPage("login");
@@ -52,8 +52,14 @@ function visualizzaEventi(view = "") {
       $(tableId).empty();
       tabellaEventi.forEach(function (event) {
         counter++;
+        let btn="";
+        if (currentUser.role == "admin") {
+          btn =  "<a href='#' onclick = \"alert('Ciao Funziono')\" class='btn btn-primary btn-sm'>Modifica</a>";
+        } else {
         let action = event.joinable ? "subscribe" : "unsubscribe";
         let btn_text = event.joinable ? "iscriviti" : "annulla iscrizione";
+        btn = "<a href='#' onclick='subscribeOrUnsubscribe(${event.id}, ${currentUser.id}, \""+action+"\")' class='btn btn-primary btn-sm'>"+btn_text+"</a>";
+        }
         $(tableId).append(`
           <tr>
             <td>${counter}</td>
@@ -62,9 +68,7 @@ function visualizzaEventi(view = "") {
             <td>${event.description}</td>
             <td>${event.playingField.name}</td>
             <td>${event.users.length}</td>
-            <td>
-              <a href='#' onclick='subscribeOrUnsubscribe(${event.id}, ${currentUser.id}, "${action}")' class='btn btn-primary btn-sm'>${btn_text}</a>
-            </td>
+            <td>${btn}</td>    
           </tr>
         `);
       });
@@ -147,7 +151,7 @@ function showHttpError(message, jqXHR, textStatus, errorThrown) {
 
 $(document).ready(function () {
   showPage("home");
-
+  // attivazione dei pulsanti
   $('#btn-home').click(function (event) { doClick(event, this.id); });
   $('#btn-login').click(function (event) { doClick(event, this.id); });
   $('#btn-register').click(function (event) { doClick(event, this.id); });
@@ -198,7 +202,7 @@ $(document).ready(function () {
       }
     });
   });
-
+  // funzione per prendere le info dell'utente loggato
   function getProfile() {
     const token = localStorage.getItem("token");
     if (!token) return showPage("login");
@@ -218,11 +222,9 @@ $(document).ready(function () {
     });
   }
 });
-
+// funzione per creare un evento
 function createEvent() {
   const token = localStorage.getItem("token");
-  if (!token || !currentUser) return showPage("login");
-
   const name = $('#event-name').val();
   const date = $('#event-date').val();
   const time = $('#event-time').val();
@@ -244,3 +246,68 @@ function createEvent() {
     }
   });
 }
+
+
+
+function visualizzaEventiAdmin(view = "") {
+  const token = localStorage.getItem("token");
+  if (!token || !currentUser) return showPage("login");
+
+  $("#loadingSpinner").show();
+
+  $.ajax({
+    url: API_EVENTS + "/joinable/" + currentUser.id,
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+    success: function (tabellaEventi) {
+      let counter = 0;
+      let tableId = (view === "view") ? "#tabellaEventiView" : "#tabellaEventi";
+      $(tableId).empty();
+      tabellaEventi.forEach(function (event) {
+        counter++;
+
+        $(tableId).append(`
+          <tr>
+            <td>${counter}</td>
+            <td>${event.playDate}</td>
+            <td>${event.playTime}</td>
+            <td>${event.description}</td>
+            <td>${event.playingField.name}</td>
+            <td>${event.users.length}</td>
+            <td>
+              <a href='#' onclick='subscribeOrUnsubscribe(${event.id}, ${currentUser.id}, "${action}")' class='btn btn-primary btn-sm'>${btn_text}</a>
+            </td>
+          </tr>
+        `);
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      showHttpError("Errore durante il caricamento degli eventi", jqXHR, textStatus, errorThrown);
+    },
+    complete: function () {
+      $("#loadingSpinner").hide();
+    },
+  });
+}
+
+/*function renderEventRow(event, index) {
+  const isAdmin = currentUser?.roles?.includes("ADMIN"); // o come hai strutturato i ruoli
+
+  let actionButton = "";
+  if (isAdmin) {
+    actionButton = `<button class="btn btn-warning btn-sm btn-modify-event" data-event-id="${event.id}">Modifica</button>`;
+  } else {
+    actionButton = `<button class="btn btn-success btn-sm btn-subscribe" data-event-id="${event.id}">Iscriviti</button>`;
+  }
+
+  return `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${event.date}</td>
+      <td>${event.time}</td>
+      <td>${event.description}</td>
+      <td>${event.location}</td>
+      <td>${event.participants}</td>
+      <td>${actionButton}</td>
+    </tr>
+  `;} */
