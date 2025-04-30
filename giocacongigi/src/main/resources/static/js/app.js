@@ -24,6 +24,7 @@ function showPage(page) {
     break;
     case "admin":
       $('#btn-logout').show();
+    
     break;
   }
 
