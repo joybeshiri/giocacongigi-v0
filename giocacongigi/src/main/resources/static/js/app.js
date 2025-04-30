@@ -19,7 +19,7 @@ function showPage(page) {
     case "register": 
     break;
     case "user":
-      caricaEventi();
+      visualizzaEventi();
       $('#btn-logout').show();
     break;
     case "admin":
@@ -28,49 +28,52 @@ function showPage(page) {
     case "create-event":
     $('#btn-logout').show();
     break; 
+    case "view-event":
+      visualizzaEventi("view");
+      $('#btn-logout').show();
   }
 
   $("#page-"+page).show();
 }
 
-function caricaEventi() { 
+function visualizzaEventi() {
   const token = localStorage.getItem("token");
   if (!token || !currentUser) return showPage("login");
 
   $("#loadingSpinner").show();
 
   $.ajax({
-    url: API_EVENTS + "/joinable/"+currentUser.id,
-    method: "GET", 
-    headers:  { Authorization: "Bearer " + token },
-    success: function(tabellaEventi) {
-              let counter = 0;
-              $("#tabellaEventi").empty(); 
-              tabellaEventi.forEach(function(event) {
-                counter++;
-                let action   = event.joinable ? 'subscribe' : 'unsubscribe';
-                let btn_text = event.joinable ? 'iscriviti' : 'annulla iscrizione';
-                $("#tabellaEventi").append(`
-                    <tr>
-                        <td>${counter}</td>
-                        <td>${event.playDate}</td>
-                        <td>${event.playTime}</td>
-                        <td>${event.description}</td>
-                        <td>${event.playingField.name}</td>
-                        <td>${event.users.length}</td>
-                        <td>
-                          <a href='#' onclick='subscribeOrUnsubscribe(${event.id}, ${currentUser.id}, "${action}")' class='btn btn-primary btn-sm'>${btn_text}</a>
-                        </td>
-                    </tr>
-                `);
-              });
-            },
-    error:    function(jqXHR, textStatus, errorThrown) {
-                showHttpError("Errore durante il caricamento degli eventi", jqXHR, textStatus, errorThrown);
-              },
-    complete: function() {
-                  $("#loadingSpinner").hide();  
-              }
+    url: API_EVENTS + "/joinable/" + currentUser.id,
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+    success: function (tabellaEventi) {
+      let counter = 0;
+      $("#tabellaEventi").empty();
+      tabellaEventi.forEach(function(event) {
+        counter++;
+        let action = event.joinable ? "subscribe" : "unsubscribe";
+        let btn_text = event.joinable ? "iscriviti" : "annulla iscrizione";
+        $(tableId).append(`
+          <tr>
+            <td>${counter}</td>
+            <td>${event.playDate}</td>
+            <td>${event.playTime}</td>
+            <td>${event.description}</td>
+            <td>${event.playingField.name}</td>
+            <td>${event.users.length}</td>
+            <td>
+              <a href='#' onclick='subscribeOrUnsubscribe(${event.id}, ${currentUser.id}, "${action}")' class='btn btn-primary btn-sm'>${btn_text}</a>
+            </td>
+          </tr>
+        `);
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      showHttpError("Errore durante il caricamento degli eventi", jqXHR, textStatus, errorThrown);
+    },
+    complete: function () {
+      $("#loadingSpinner").hide();
+    },
   });
 }
 
@@ -103,7 +106,7 @@ function subscribeOrUnsubscribe(eventId, userId, action) {
     data:         JSON.stringify({eventId, userId}),
     success:      function () {
                     alert(message);
-                    caricaEventi();
+                    visualizzaEventi();
                   },
     error:        function (jqXHR, textStatus, errorThrown) {
                     showHttpError("Errore durante Iscrizione/Disiscrizione", jqXHR, textStatus, errorThrown);
@@ -150,6 +153,7 @@ $(document).ready(function () {
   $('#btn-register').click(function(event) { doClick(event, this.id); });
   $('#btn-logout').click(function(event)   { doClick(event, this.id); });
   $('#btn-create-event').click(function(event)   { doClick(event, this.id); });
+  $('#btn-view-event').click(function(event)   { doClick(event, this.id); });
 
   $('#login-form').submit(function (e) {
     e.preventDefault();
@@ -215,3 +219,20 @@ $(document).ready(function () {
     }); 
   }
 });
+
+function createEvent() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+}
