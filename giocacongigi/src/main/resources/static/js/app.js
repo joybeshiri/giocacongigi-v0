@@ -231,13 +231,59 @@ $(document).ready(function () {
   }
 });
 
+function caricaCampiDaGioco() {
+    const token = localStorage.getItem("token");
+
+    // Verifica se il token esiste
+    if (!token) {
+        console.error("Token mancante!");
+        alert("Token mancante! Assicurati di essere autenticato.");
+        return; // Blocca l'esecuzione se il token è mancante
+    }
+
+    // Esegui la richiesta AJAX per ottenere i campi da gioco
+    $.ajax({
+        url: "http://localhost:8080/giocacongigi/api/fields", // Endpoint per ottenere i campi
+        method: "GET",
+        headers: { Authorization: "Bearer " + token },
+        success: function (data) {
+            console.log("Dati dei campi ricevuti:", data); // Log dei dati ricevuti dalla risposta
+
+            const select = $('#event-location');
+            select.empty(); // Svuota la select prima di riempirla
+            select.append('<option value="">-- Seleziona un campo --</option>'); // Aggiungi l'opzione di default
+
+            // Aggiungi i campi nella select
+            data.forEach(function (campo) {
+                select.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Errore durante il caricamento dei campi da gioco:", errorThrown);
+            alert("Errore nel caricamento dei campi da gioco. Per favore riprova.");
+        }
+    });
+}
+
+$(document).ready(function() {
+    caricaCampiDaGioco(); // Chiama la funzione per caricare i campi quando la pagina è pronta
+});
+
+
+
+
+
+
+
+
+
 function createEvent() {
   const token = localStorage.getItem("token");
 
   const playDate = $('#event-date').val();
   const playTime = $('#event-time').val();
   const description = $('#event-description').val();
-  const playingFieldId = $('#event-location').val(); // ⚠️ Deve essere un ID numerico!
+  const playingFieldId = $('#event-location').val();
 
   $.ajax({
     url: API_EVENTS,

@@ -124,8 +124,10 @@
                 <textarea class="form-control" id="event-description" rows="3" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="event-location" class="form-label">Luogo</label>
-                <input type="text" class="form-control" id="event-location" required>
+                <label for="event-location" class="form-label">Campo da gioco</label>
+                <select class="form-control" id="event-location" required>
+                    <option value="">-- Seleziona un campo --</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Crea Evento</button>
         </form>
