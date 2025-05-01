@@ -311,7 +311,7 @@ public class EventController {
         if (existingEventOptional.isEmpty()) {
             throw new ResourceNotFoundException("Evento con ID " + id + " non trovato");
         }
-        Event existingEvent = existingEventOptional.get();
+       // Event existingEvent = existingEventOptional.get();
 
         eventDTO.setId(id);
 

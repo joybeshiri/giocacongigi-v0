@@ -10,7 +10,6 @@ function showPage(page) {
   $('form').each(function() {
     this.reset();
   });
- // cambio pagina
   switch (page) {
     case "home":
       break;
@@ -35,7 +34,7 @@ function showPage(page) {
 
   $("#page-" + page).show();
 }
-// funzione per stampare gli eventi prensenti nel db e non scaduti
+
 function visualizzaEventi(view = "") {
   const token = localStorage.getItem("token");
   if (!token || !currentUser) return showPage("login");
@@ -56,9 +55,9 @@ function visualizzaEventi(view = "") {
         if (currentUser.role == "admin") {
           btn =  "<a href='#' onclick = \"alert('Ciao Funziono')\" class='btn btn-primary btn-sm'>Modifica</a>";
         } else {
-        let action = event.joinable ? "subscribe" : "unsubscribe";
-        let btn_text = event.joinable ? "iscriviti" : "annulla iscrizione";
-        btn = "<a href='#' onclick='subscribeOrUnsubscribe(${event.id}, ${currentUser.id}, \""+action+"\")' class='btn btn-primary btn-sm'>"+btn_text+"</a>";
+          let action = event.joinable ? "subscribe" : "unsubscribe";
+          let btn_text = event.joinable ? "iscriviti" : "annulla iscrizione";
+          btn = "<a href='#' onclick='subscribeOrUnsubscribe(" + event.id + ", " + currentUser.id + ", \"" + action + "\")' class='btn btn-primary btn-sm'>" + btn_text + "</a>";
         }
         $(tableId).append(`
           <tr>
@@ -68,7 +67,7 @@ function visualizzaEventi(view = "") {
             <td>${event.description}</td>
             <td>${event.playingField.name}</td>
             <td>${event.users.length}</td>
-            <td>${btn}</td>    
+            <td>${btn}</td>
           </tr>
         `);
       });
@@ -151,13 +150,22 @@ function showHttpError(message, jqXHR, textStatus, errorThrown) {
 
 $(document).ready(function () {
   showPage("home");
-  // attivazione dei pulsanti
+
   $('#btn-home').click(function (event) { doClick(event, this.id); });
   $('#btn-login').click(function (event) { doClick(event, this.id); });
   $('#btn-register').click(function (event) { doClick(event, this.id); });
   $('#btn-logout').click(function (event) { doClick(event, this.id); });
   $('#btn-create-event').click(function (event) { doClick(event, this.id); });
   $('#btn-view-event').click(function (event) { doClick(event, this.id); });
+
+  $('#btn-create-event').click(function () {
+    showPage("create-event");
+  });
+
+  $('#create-event-form').submit(function (e) {
+    e.preventDefault();
+    createEvent();
+  });
 
   $('#login-form').submit(function (e) {
     e.preventDefault();
@@ -202,7 +210,7 @@ $(document).ready(function () {
       }
     });
   });
-  // funzione per prendere le info dell'utente loggato
+
   function getProfile() {
     const token = localStorage.getItem("token");
     if (!token) return showPage("login");
@@ -222,21 +230,21 @@ $(document).ready(function () {
     });
   }
 });
-// funzione per creare un evento
+
 function createEvent() {
   const token = localStorage.getItem("token");
-  const name = $('#event-name').val();
-  const date = $('#event-date').val();
-  const time = $('#event-time').val();
+
+  const playDate = $('#event-date').val();
+  const playTime = $('#event-time').val();
   const description = $('#event-description').val();
-  const location = $('#event-location').val();
+  const playingFieldId = $('#event-location').val(); // ⚠️ Deve essere un ID numerico!
 
   $.ajax({
     url: API_EVENTS,
     method: "POST",
     headers: { Authorization: "Bearer " + token },
     contentType: "application/json",
-    data: JSON.stringify({ name, date, time, description, location }),
+    data: JSON.stringify({ playDate, playTime, description, playingFieldId }),
     success: function () {
       alert("Evento creato con successo");
       showPage("admin");
@@ -289,25 +297,3 @@ function visualizzaEventiAdmin(view = "") {
     },
   });
 }
-
-/*function renderEventRow(event, index) {
-  const isAdmin = currentUser?.roles?.includes("ADMIN"); // o come hai strutturato i ruoli
-
-  let actionButton = "";
-  if (isAdmin) {
-    actionButton = `<button class="btn btn-warning btn-sm btn-modify-event" data-event-id="${event.id}">Modifica</button>`;
-  } else {
-    actionButton = `<button class="btn btn-success btn-sm btn-subscribe" data-event-id="${event.id}">Iscriviti</button>`;
-  }
-
-  return `
-    <tr>
-      <td>${index + 1}</td>
-      <td>${event.date}</td>
-      <td>${event.time}</td>
-      <td>${event.description}</td>
-      <td>${event.location}</td>
-      <td>${event.participants}</td>
-      <td>${actionButton}</td>
-    </tr>
-  `;} */
