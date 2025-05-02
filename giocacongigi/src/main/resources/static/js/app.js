@@ -28,6 +28,10 @@ function showPage(page) {
       $('#btn-logout').show();
       caricaCampiDaGioco();
       break;
+      case "delete-event":
+        $('#btn-logout').show();
+        visualizzaEventiPerEliminazione();
+        break;
     case "view-event":
       visualizzaEventi("view");
       $('#btn-logout').show();
@@ -163,6 +167,16 @@ $(document).ready(function () {
     showPage("create-event");
   });
 
+  $('#btn-delete-event').click(function (event) {
+    event.preventDefault();
+    showPage("delete-event");
+  });
+  $('#btn-back-to-admin').click(function (event) {
+    event.preventDefault();
+    showPage("admin");
+  });
+//btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
+
   $('#create-event-form').submit(function (e) {
     e.preventDefault();
     createEvent();
@@ -292,13 +306,6 @@ $(document).ready(function() {
 });
 
 
-
-
-
-
-
-
-
 function createEvent() {
   const token = localStorage.getItem("token");
 
@@ -321,6 +328,30 @@ function createEvent() {
       showHttpError("Errore durante la creazione dell'evento", jqXHR, textStatus, errorThrown);
     }
   });
+}
+
+function deleteEvent(eventId) {
+    const token = localStorage.getItem("token");
+    if (!token || !currentUser || currentUser.role !== "admin") {
+        alert("Accesso non autorizzato.");
+        return showPage("login"); // Se l'utente non è autenticato o non è admin, lo rimandiamo al login
+    }
+
+    if (confirm("Sei sicuro di voler eliminare questo evento?")) {
+        // Effettuiamo la richiesta DELETE
+        $.ajax({
+            url: API_EVENTS + "/" + eventId,
+            method: "DELETE",
+            headers: { Authorization: "Bearer " + token },
+            success: function () {
+                alert("Evento eliminato con successo!");
+                visualizzaEventiPerEliminazione(); // Ricarica la lista degli eventi da eliminare
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showHttpError("Errore durante l'eliminazione dell'evento", jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
 }
 
 
@@ -413,4 +444,46 @@ $("#form-edit-event").submit(function (e) {
         }
     });
 });
+
+function visualizzaEventiPerEliminazione() {
+    const token = localStorage.getItem("token");
+    if (!token || !currentUser || currentUser.role !== "admin") return showPage("login");
+
+    $("#loadingSpinner").show();
+
+    $.ajax({
+        url: API_EVENTS + "/joinable/" + currentUser.id,
+        method: "GET",
+        headers: { Authorization: "Bearer " + token },
+        success: function (tabellaEventi) {
+            let counter = 0;
+            $("#tabellaEventiElimina").empty();
+
+            tabellaEventi.forEach(function (event) {
+                counter++;
+                $("#tabellaEventiElimina").append(`
+                    <tr>
+                        <td>${counter}</td>
+                        <td>${event.playDate}</td>
+                        <td>${event.playTime}</td>
+                        <td>${event.description}</td>
+                        <td>${event.playingField.name}</td>
+                        <td>${event.users.length}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deleteEvent(${event.id})">Elimina</button>
+                        </td>
+                    </tr>
+                `);
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showHttpError("Errore durante il caricamento degli eventi per l'eliminazione", jqXHR, textStatus, errorThrown);
+        },
+        complete: function () {
+            $("#loadingSpinner").hide();
+        }
+    });
+}
+
+
 
