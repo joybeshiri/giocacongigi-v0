@@ -211,6 +211,21 @@ $(document).ready(function () {
     });
   });
 
+$(document).ready(function () {
+  // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina crea evento
+  $('#btn-back-to-events-create').click(function (event) {
+    event.preventDefault();
+    showPage("admin");  // Torna alla pagina admin (console di amministrazione)
+  });
+
+  // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina visualizza evento
+  $('#btn-back-to-events-view').click(function (event) {
+    event.preventDefault();
+    showPage("admin");  // Torna alla pagina admin (console di amministrazione)
+  });
+});
+
+
   function getProfile() {
     const token = localStorage.getItem("token");
     if (!token) return showPage("login");
