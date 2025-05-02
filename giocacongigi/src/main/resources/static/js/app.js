@@ -54,7 +54,7 @@ function visualizzaEventi(view = "") {
         counter++;
         let btn="";
         if (currentUser.role == "admin") {
-          btn =  "<a href='#' onclick = \"alert('Ciao Funziono')\" class='btn btn-primary btn-sm'>Modifica</a>";
+         btn = "<a href='#' onclick='editEvent(" + JSON.stringify(event).replace(/'/g, "\\'") + ")' class='btn btn-warning btn-sm'>Modifica</a>";
         } else {
           let action = event.joinable ? "subscribe" : "unsubscribe";
           let btn_text = event.joinable ? "iscriviti" : "annulla iscrizione";
@@ -265,13 +265,19 @@ function caricaCampiDaGioco() {
         success: function (data) {
             console.log("Dati dei campi ricevuti:", data); // Log dei dati ricevuti dalla risposta
 
-            const select = $('#event-location');
-            select.empty(); // Svuota la select prima di riempirla
-            select.append('<option value="">-- Seleziona un campo --</option>'); // Aggiungi l'opzione di default
+            // Svuota i select per la creazione e la modifica
+            const selectCreate = $('#event-location');
+            const selectEdit = $('#event-edit-location');
 
-            // Aggiungi i campi nella select
+            selectCreate.empty(); // Svuota la select per la creazione
+            selectEdit.empty(); // Svuota la select per la modifica
+            selectCreate.append('<option value="">-- Seleziona un campo --</option>'); // Aggiungi l'opzione di default
+            selectEdit.append('<option value="">-- Seleziona un campo --</option>'); // Aggiungi l'opzione di default
+
+            // Aggiungi ogni campo disponibile come opzione
             data.forEach(function (campo) {
-                select.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
+                selectCreate.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
+                selectEdit.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
             });
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -359,3 +365,52 @@ function visualizzaEventiAdmin(view = "") {
     },
   });
 }
+
+// MOSDIFICA EVENTI NELLA VISUALIZZA
+function editEvent(event) {
+  $("#edit-event-id").val(event.id);
+  $("#edit-event-date").val(event.playDate);
+  $("#edit-event-time").val(event.playTime);
+  $("#edit-event-description").val(event.description);
+
+  // Carica tutti i campi per permettere la selezione
+  caricaCampiDaGioco();
+
+  showPage("edit-event");
+}
+
+$("#form-edit-event").submit(function (e) {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    const updatedEvent = {
+        id: $("#edit-event-id").val(),
+        playDate: $("#edit-event-date").val(),
+        playTime: $("#edit-event-time").val(),
+        description: $("#edit-event-description").val(),
+        playingFieldId: $("#event-edit-location").val(), // ID campo selezionato
+    };
+
+    if (!updatedEvent.playDate || !updatedEvent.playTime || !updatedEvent.playingFieldId) {
+        alert("Per favore, completa tutti i campi obbligatori.");
+        return;
+    }
+
+    $.ajax({
+        url: API_EVENTS + "/" + updatedEvent.id, // URL per aggiornare l'evento
+        method: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(updatedEvent),
+        headers: { Authorization: "Bearer " + token },
+        success: function () {
+            alert("Evento aggiornato con successo!");
+            visualizzaEventi("view");
+            showPage("view-event");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Errore durante l'aggiornamento dell'evento", errorThrown);
+            alert("Errore durante l'aggiornamento dell'evento.");
+        }
+    });
+});
+
