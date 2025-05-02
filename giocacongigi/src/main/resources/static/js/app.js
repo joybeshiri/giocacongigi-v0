@@ -26,6 +26,7 @@ function showPage(page) {
       break;
     case "create-event":
       $('#btn-logout').show();
+      caricaCampiDaGioco();
       break;
     case "view-event":
       visualizzaEventi("view");
