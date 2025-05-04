@@ -14,11 +14,11 @@
 
     <div id="header">
         <a href="#" id="btn-home">
-          <img src="./images/logo2amy.png" alt="Logo">
-          <span class="home-label">Home</span>
-        </a> 
+            <img src="./images/logo2amy.png" alt="Logo">
+            <span class="home-label">Home</span>
+        </a>
         <a href="#" id="btn-logout" class="btn btn-danger">Esci</a>
-      </div>
+    </div>
 
     <div id="content">
         <div id="page-home" class="page home-background">
@@ -33,18 +33,20 @@
         </div>
 
         <div id="page-login" class="page">
-            <h2>LOGIN</h2>
-            <form id="login-form">
-                <div class="mb-3">
-                    <label for="login-email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="login-email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="login-password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="login-password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">ENTRA</button>
-            </form>
+            <div class="login-content">
+                <h2>LOGIN</h2>
+                <form id="login-form">
+                    <div class="mb-3">
+                        <label for="login-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="login-email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ENTRA</button>
+                </form>
+            </div>
         </div>
 
         <div id="page-register" class="page">
@@ -117,14 +119,20 @@
             <div id="table-container" class="table-admin">
                 <h2>CONSOLE DI AMMINISTRAZIONE</h2>
                 <div class="button-container">
-                    <label for="create-event"><b>Crea Evento</b></label>
-                    <button type="button" id="btn-create-event" class="admin-button">Crea</button>
-                    <br>
-                    <label for="delete-event"><b>Elimina Evento</b></label>
-                    <button type="button" id="btn-delete-event" class="admin-button">Elimina</button>
-                    <br>
-                    <label for="view-event"><b>Visualizza Eventi</b></label>
-                    <button type="button" id="btn-view-event" class="admin-button">View</button>
+                    <div class="riga">
+                        <label for="create-event" class="descrizione"><b>Crea Evento</b></label>
+                        <button type="button" id="btn-create-event" class="admin-button">Crea</button>
+                    </div>
+                    <br><br>
+                    <div class="riga">
+                        <label for="delete-event" class="descrizione"><b>Elimina Evento</b></label>
+                        <button type="button" id="btn-delete-event" class="admin-button">Elimina</button>
+                    </div>
+                    <br><br>
+                    <div class="riga">
+                        <label for="view-event" class="descrizione"><b>Visualizza Eventi</b></label>
+                        <button type="button" id="btn-view-event" class="admin-button">View</button>
+                    </div>
                     <br>
                 </div>
             </div>
@@ -132,31 +140,33 @@
 
         <!-- Pagina per creare eventi (admin) -->
         <div id="page-create-event" class="page">
-            <h2>Crea Nuovo Evento</h2>
-            <form id="create-event-form">
-                <div class="mb-3">
-                    <label for="event-date" class="form-label">Data</label>
-                    <input type="date" class="form-control" id="event-date" required>
-                </div>
-                <div class="mb-3">
-                    <label for="event-time" class="form-label">Ora</label>
-                    <input type="time" class="form-control" id="event-time" required>
-                </div>
-                <div class="mb-3">
-                    <label for="event-description" class="form-label">Descrizione</label>
-                    <textarea class="form-control" id="event-description" rows="3" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="event-location" class="form-label">Campo da gioco</label>
-                    <select class="form-control" id="event-location" required>
-                        <option value="">-- Seleziona un campo --</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Crea Evento</button>
-                <button id="btn-back-to-events-create" class="btn btn-secondary mt-3">Torna alla console di
-                    amministrazione
-            </form>
-            </button>
+            <div class="login-content">
+                <h2>Crea Nuovo Evento</h2>
+                <form id="create-event-form">
+                    <div class="mb-3">
+                        <label for="event-date" class="form-label">Data</label>
+                        <input type="date" class="form-control" id="event-date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="event-time" class="form-label">Ora</label>
+                        <input type="time" class="form-control" id="event-time" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="event-description" class="form-label">Descrizione</label>
+                        <textarea class="form-control" id="event-description" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="event-location" class="form-label">Campo da gioco</label>
+                        <select class="form-control" id="event-location" required>
+                            <option value="">-- Seleziona un campo --</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crea Evento</button>
+                    <button id="btn-back-to-events-create" class="btn btn-secondary mt-3">Torna alla console di
+                        amministrazione
+                </form>
+                </button>
+            </div>
 
         </div>
         <!-- Pagina per vedere eventi (admin) -->
@@ -182,7 +192,8 @@
                     </table>
                 </div>
             </div>
-            <button id="btn-back-to-events-view" class="btn btn-secondary mt-3">Torna alla console di amministrazione
+            <button id="btn-back-to-events-view" class="btn btn-secondary mt-3">Torna alla console di
+                amministrazione
             </button>
         </div>
         <!-- modifica eventi -->

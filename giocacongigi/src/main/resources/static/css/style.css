@@ -7,7 +7,18 @@ body {
 }
 
 .page {
-    display: none;
+    background-image: url('../images/home-backgroundamy.jpg');
+    background-color: rgb(255, 255, 255);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    justify-content: center;
 }
 
 a {
@@ -44,7 +55,7 @@ a:hover {
 }
 
 .home-label {
-    font-family: 'Georgia', serif; 
+    font-family: 'Georgia', serif;
     font-size: 1rem;
     color: #f7e3ee;
     margin-top: -10px;
@@ -98,7 +109,7 @@ a:hover {
 
 .home-background {
     background-image: url('../images/home-backgroundamy.jpg');
-    background-size: cover;
+    background-size: 1900px 800px;
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
@@ -106,7 +117,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #c5a4b6;
+    color: white;
     text-align: center;
 }
 
@@ -168,4 +179,63 @@ tbody tr:nth-child(even) {
 #btn-register:hover {
     background-color: none;
     color: rgb(135, 6, 155);
+}
+
+.login-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.btn-primary {
+    background-color: rgb(135, 6, 155);
+    color: white;
+    border: none;
+}
+
+.table-admin {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.admin-button {
+    background-color: rgb(135, 6, 155);
+    color: white;
+    border: none;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.riga {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.descrizione {
+    font-size: 16px;
+}
+
+.admin-button {
+    padding: 6px 12px;
+    background-color: rgb(135, 6, 155);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
