@@ -1,13 +1,13 @@
 html,
 body {
-    height:     100%;
-    margin:     0;
-    padding:    0;
-    overflow:   hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-.page { 
-    display: none; 
+.page {
+    display: none;
 }
 
 a {
@@ -19,59 +19,59 @@ a:hover {
 }
 
 #header {
-    position:           fixed;
-    top:                0;
-    left:               0;
-    width:              100%;
-    height:             10vh;  
-    padding-left:       10px;
-    padding-right:      10px;
-    padding-top:        10px;
-    padding-bottom:     10px;
-    background-color:   rgba(0, 0, 0, 0.85); 
-    display:            flex;
-    align-items:        center;
-    justify-content:    space-between;
-    box-sizing:         border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
 #content {
-    position:           absolute;
-    top:                10vh;  
-    left:               0;
-    width:              100%;
-    height:             80vh;  
-    overflow-y:         auto;  
-    background-color:   #ffffff;  
-    display:            flex;
-    align-items:        center;
-    justify-content:    center;
-    text-align:         center;
-    padding:            0;
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    overflow-y: auto;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
 }
 
 #footer {
-    position:           fixed;
-    bottom:             0;
-    left:               0;
-    width:              100%;
-    height:             10vh;  
-    background-color:   rgba(0, 0, 0, 0.85);   
-    color:              #ffffff;
-    display:            flex;
-    align-items:        center;
-    justify-content:    space-between;
-    padding:            0 20px;
-    box-sizing:         border-box;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 #social-icons {
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
 }
 
 #social-icons img {
-    width:       50%;
+    width: 50%;
     margin-left: 10px;
 }
 
@@ -80,29 +80,29 @@ a:hover {
 }
 
 .home-background {
-    background-image:       url('../images/home-background.jpg');
-    background-size:        cover;
-    background-position:    center;
-    background-repeat:      no-repeat;
-    height:                 100%;  
-    width:                  100%;
-    display:                flex;  
-    align-items:            center;  
-    justify-content:        center;  
-    color:                  white; 
-    text-align:             center;  
+    background-image: url('../images/home-backgroundamy.jpg');
+    background-size: 1900px 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
 }
 
 .home-content {
-    background-color:   rgba(0, 0, 0, 0.7);
-    padding:            20px;
-    border-radius:      10px;
-} 
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
 
 .table-container {
     background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
 
@@ -135,4 +135,20 @@ tbody tr:nth-child(even) {
 
 .spinner-border {
     display: none;
+}
+
+#btn-login {
+    background-color: rgb(135, 6, 155);
+    color: white;
+    border: none;
+}
+
+#btn-register {
+    background-color: none;
+    color: white;
+}
+
+#btn-register:hover {
+    background-color: none;
+    color: rgb(135, 6, 155);
 }
