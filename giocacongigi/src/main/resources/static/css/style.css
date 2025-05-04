@@ -35,6 +35,23 @@ a:hover {
     box-sizing: border-box;
 }
 
+#btn-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.home-label {
+    font-family: 'Georgia', serif; 
+    font-size: 1rem;
+    color: #f7e3ee;
+    margin-top: -10px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
 #content {
     position: absolute;
     top: 10vh;
