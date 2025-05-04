@@ -261,38 +261,36 @@ $(document).ready(function () {
   }
 });
 
-function caricaCampiDaGioco() {
+function caricaCampiDaGioco(callback) {
     const token = localStorage.getItem("token");
 
-    // Verifica se il token esiste
     if (!token) {
         console.error("Token mancante!");
         alert("Token mancante! Assicurati di essere autenticato.");
-        return; // Blocca l'esecuzione se il token è mancante
+        return;
     }
 
-    // Esegui la richiesta AJAX per ottenere i campi da gioco
     $.ajax({
-        url: "http://localhost:8080/giocacongigi/api/fields", // Endpoint per ottenere i campi
+        url: "http://localhost:8080/giocacongigi/api/fields",
         method: "GET",
         headers: { Authorization: "Bearer " + token },
         success: function (data) {
-            console.log("Dati dei campi ricevuti:", data); // Log dei dati ricevuti dalla risposta
+            console.log("Dati dei campi ricevuti:", data);
 
-            // Svuota i select per la creazione e la modifica
             const selectCreate = $('#event-location');
             const selectEdit = $('#event-edit-location');
 
-            selectCreate.empty(); // Svuota la select per la creazione
-            selectEdit.empty(); // Svuota la select per la modifica
-            selectCreate.append('<option value="">-- Seleziona un campo --</option>'); // Aggiungi l'opzione di default
-            selectEdit.append('<option value="">-- Seleziona un campo --</option>'); // Aggiungi l'opzione di default
+            selectCreate.empty().append('<option value="">-- Seleziona un campo --</option>');
+            selectEdit.empty().append('<option value="">-- Seleziona un campo --</option>');
 
-            // Aggiungi ogni campo disponibile come opzione
             data.forEach(function (campo) {
                 selectCreate.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
                 selectEdit.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
             });
+
+            if (typeof callback === "function") {
+                callback(); // Esegui la callback dopo aver caricato i dati
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error("Errore durante il caricamento dei campi da gioco:", errorThrown);
@@ -301,9 +299,6 @@ function caricaCampiDaGioco() {
     });
 }
 
-$(document).ready(function() {
-    caricaCampiDaGioco(); // Chiama la funzione per caricare i campi quando la pagina è pronta
-});
 
 
 function createEvent() {
@@ -404,11 +399,18 @@ function editEvent(event) {
   $("#edit-event-time").val(event.playTime);
   $("#edit-event-description").val(event.description);
 
-  // Carica tutti i campi per permettere la selezione
-  caricaCampiDaGioco();
+  // Carica i campi da gioco e solo dopo imposta il valore selezionato
+  caricaCampiDaGioco(function () {
+  $("#edit-event-id").val(event.id);
+  $("#edit-event-date").val(event.playDate);
+  $("#edit-event-time").val(event.playTime);
+  $("#edit-event-description").val(event.description);
+  $("#event-edit-location").val(event.playingField.id);
+  });
 
   showPage("edit-event");
 }
+
 
 $("#form-edit-event").submit(function (e) {
     e.preventDefault();
@@ -484,6 +486,7 @@ function visualizzaEventiPerEliminazione() {
         }
     });
 }
+
 
 
 
