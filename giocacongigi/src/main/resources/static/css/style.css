@@ -98,7 +98,7 @@ a:hover {
 
 .home-background {
     background-image: url('../images/home-backgroundamy.jpg');
-    background-size: 1900px 800px;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
