@@ -14,11 +14,11 @@
 
     <div id="header">
         <a href="#" id="btn-home">
-          <img src="./images/logo2amy.png" alt="Logo">
-          <span class="home-label">Home</span>
-        </a> 
+            <img src="./images/logo2amy.png" alt="Logo">
+            <span class="home-label">Home</span>
+        </a>
         <a href="#" id="btn-logout" class="btn btn-danger">Esci</a>
-      </div>
+    </div>
 
     <div id="content">
         <div id="page-home" class="page home-background">
@@ -68,20 +68,26 @@
 
         <div id="page-delete-event" class="page" style="display:none;">
             <h2>Elimina Evento</h2>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Data</th>
-                        <th>Ora</th>
-                        <th>Descrizione</th>
-                        <th>Campo</th>
-                        <th>Iscritti</th>
-                        <th>Azioni</th>
-                    </tr>
-                </thead>
-                <tbody id="tabellaEventiElimina"></tbody>
-            </table>
+
+            <div class="table-container">
+                <div class="table-wrapper">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>Data</th>
+                                <th>Ora</th>
+                                <th>Descrizione</th>
+                                <th>Campo</th>
+                                <th>Iscritti</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabellaEventiElimina"></tbody>
+                    </table>
+                    <button id="btn-back-to-admin" class="btn btn-secondary">Torna alla Console di Amministrazione</button>
+                </div>
+            </div>
             <button id="btn-back-to-admin" class="btn btn-secondary">Torna alla Console di Amministrazione</button>
         </div>
 
@@ -153,9 +159,9 @@
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Crea Evento</button>
-                <button id="btn-back-to-events-create" class="btn btn-secondary mt-3">Torna alla console di
-                    amministrazione
-            </form>
+                <button id="btn-back-to-events-create" class="btn btn-secondary mt-3">Torna alla console di amministrazione
+
+                </form>
             </button>
 
         </div>
@@ -175,7 +181,7 @@
                                 <th>Descrizione</th>
                                 <th>Campo</th>
                                 <th>N° Iscritti</th>
-
+                                <th>Azioni</th>
                             </tr>
                         </thead>
                         <tbody id="tabellaEventiView"></tbody>

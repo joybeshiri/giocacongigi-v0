@@ -169,3 +169,29 @@ tbody tr:nth-child(even) {
     background-color: none;
     color: rgb(135, 6, 155);
 }
+
+
+/* parametri di home riportati in pagina admin*/
+.admin {
+    background-image: url('../images/ultimate-ali.jpg');
+    background-size: 1900px 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    opacity: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center; /* Centra il contenuto interno */
+}
+
+.table-admin {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
