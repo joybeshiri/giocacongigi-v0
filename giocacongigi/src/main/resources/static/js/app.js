@@ -7,6 +7,7 @@ let currentUser = null;
 function showPage(page) {
   $('.page').hide();
   $('#btn-logout').hide();
+  $('#btn-profile').hide();
   $('form').each(function() {
     this.reset();
   });
@@ -20,25 +21,39 @@ function showPage(page) {
     case "user":
       visualizzaEventi();
       $('#btn-logout').show();
+      $('#btn-profile').show();
       break;
     case "admin":
       $('#btn-logout').show();
+      $('#btn-profile').show();
       break;
     case "create-event":
       $('#btn-logout').show();
       caricaCampiDaGioco();
+      $('#btn-profile').show();
       break;
       case "delete-event":
         $('#btn-logout').show();
         visualizzaEventiPerEliminazione();
+        $('#btn-profile').show();
         break;
     case "view-event":
       visualizzaEventi("view");
       $('#btn-logout').show();
+<<<<<<< Updated upstream
         break;
     case "change-password":
             $('#btn-logout').show();
 
+=======
+      $('#btn-profile').show();
+      break;
+    case "profile":
+      $('#btn-logout').show();
+      $('#btn-profile').show();
+      break;
+     
+>>>>>>> Stashed changes
   }
 
   $("#page-" + page).show();
@@ -166,7 +181,8 @@ $(document).ready(function () {
   $('#btn-logout').click(function (event) { doClick(event, this.id); });
   $('#btn-create-event').click(function (event) { doClick(event, this.id); });
   $('#btn-view-event').click(function (event) { doClick(event, this.id); });
-
+  $('#btn-profile').click(function (event) { doClick(event, this.id); });
+  
   $('#btn-create-event').click(function () {
     showPage("create-event");
   });
@@ -179,6 +195,7 @@ $(document).ready(function () {
     event.preventDefault();
     showPage("admin");
   });
+
 //btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
 
   $('#create-event-form').submit(function (e) {

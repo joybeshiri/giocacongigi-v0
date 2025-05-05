@@ -18,6 +18,7 @@
             <span class="home-label">Home</span>
         </a>
         <a href="#" id="btn-logout" class="btn btn-danger">Esci</a>
+        <button id="btn-profile" class="btn btn-info">Profilo</button>
     </div>
 
     <div id="content">
@@ -90,7 +91,7 @@
         </div>
 
 
-
+        <!-- Pagina per l'utente -->
         <div id="page-user" class="page">
             <button id="btn-change-password" class="btn btn-warning me-2">Cambia Password</button>
             <div class="spinner-border text-primary" id="loadingSpinner" role="status">
@@ -126,6 +127,36 @@
             </form>
         </div>
 
+
+        <!-- Pagina per il profilo utente -->
+        <div id="page-profile" class="page" style="display:none;">
+            <div class="profile-content">
+                <h2>Profilo Utente</h2>
+                <div class="user-info">
+                    <p>Nome Utente:<span id="user-username"></span></p>
+                </div>
+                <button id="btn-change-password" class="btn btn-warning">Cambia Password</button>
+                <h3 class="mt-4">Eventi a cui sei iscritto</h3>
+                <div class="table-container">
+                    <div class="table-wrapper">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>N.</th>
+                                    <th>Data</th>
+                                    <th>Ora</th>
+                                    <th>Descrizione</th>
+                                    <th>Campo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-events">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button id="btn-back-to-home" class="btn btn-secondary mt-3">Torna alla Home</button>
+            </div>
+        </div>
 
         <!-- Pagina per l'amministratore -->
         <div id="page-admin" class="page admin">
