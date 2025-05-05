@@ -11,6 +11,10 @@ function showPage(page) {
   $('form').each(function() {
     this.reset();
   });
+
+  // Nascondi il form di cambio password se visibile
+  $('#page-change-password').hide();
+
   switch (page) {
     case "home":
       break;
@@ -32,11 +36,11 @@ function showPage(page) {
       caricaCampiDaGioco();
       $('#btn-profile').show();
       break;
-      case "delete-event":
-        $('#btn-logout').show();
-        visualizzaEventiPerEliminazione();
-        $('#btn-profile').show();
-        break;
+    case "delete-event":
+      $('#btn-logout').show();
+      visualizzaEventiPerEliminazione();
+      $('#btn-profile').show();
+       break;
     case "view-event":
       visualizzaEventi("view");
       $('#btn-logout').show();
@@ -46,6 +50,10 @@ function showPage(page) {
       $('#btn-logout').show();
       $('#btn-profile').show();
       break;
+    case "change-password":
+      $('#btn-logout').show();
+      $('#btn-profile').show();
+        break;
      
   }
 
@@ -168,14 +176,14 @@ function showHttpError(message, jqXHR, textStatus, errorThrown) {
 $(document).ready(function () {
   showPage("home");
 
-  $('#btn-home').click(function (event) { doClick(event, this.id); });
   $('#btn-login').click(function (event) { doClick(event, this.id); });
   $('#btn-register').click(function (event) { doClick(event, this.id); });
   $('#btn-logout').click(function (event) { doClick(event, this.id); });
   $('#btn-create-event').click(function (event) { doClick(event, this.id); });
   $('#btn-view-event').click(function (event) { doClick(event, this.id); });
   $('#btn-profile').click(function (event) { doClick(event, this.id); });
-  
+  $('#btn-change-password').click(function (event) { doClick(event, this.id); });
+
   $('#btn-create-event').click(function () {
     showPage("create-event");
   });
@@ -187,6 +195,18 @@ $(document).ready(function () {
   $('#btn-back-to-admin').click(function (event) {
     event.preventDefault();
     showPage("admin");
+  });
+  $('#btn-home').click(function (event) {
+    event.preventDefault();
+    showPage("home");
+  });
+  $('#cancel-change-password').click(function (event) {
+    event.preventDefault();
+    showPage("profile");
+  });
+  $('#btn-back-to-home').click(function (event) {
+    event.preventDefault();
+    showPage("home");
   });
 
 //btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
