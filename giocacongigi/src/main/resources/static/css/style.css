@@ -9,7 +9,7 @@ body {
 .page {
     background-image: url('../images/home-backgroundamy.jpg');
     background-color: rgb(255, 255, 255);
-    background-size: cover;
+    background-size: 1800px 700px;
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
@@ -109,7 +109,7 @@ a:hover {
 
 .home-background {
     background-image: url('../images/home-backgroundamy.jpg');
-    background-size: 1900px 800px;
+    background-size: 1800px 700px;
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
@@ -197,17 +197,21 @@ tbody tr:nth-child(even) {
     border: none;
 }
 
+.admin {
+    background-image: url('../images/ultimate-ali.jpg');
+    background-size: 1900px 800px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+
+}
+
 .table-admin {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
     margin-top: 30px;
-}
-
-.admin-button {
-    background-color: rgb(135, 6, 155);
-    color: white;
-    border: none;
 }
 
 .button-container {

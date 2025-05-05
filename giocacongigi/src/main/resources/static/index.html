@@ -69,22 +69,24 @@
         </div>
 
         <div id="page-delete-event" class="page" style="display:none;">
-            <h2>Elimina Evento</h2>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Data</th>
-                        <th>Ora</th>
-                        <th>Descrizione</th>
-                        <th>Campo</th>
-                        <th>Iscritti</th>
-                        <th>Azioni</th>
-                    </tr>
-                </thead>
-                <tbody id="tabellaEventiElimina"></tbody>
-            </table>
-            <button id="btn-back-to-admin" class="btn btn-secondary">Torna alla Console di Amministrazione</button>
+            <div class="login-content">
+                <h2>Elimina Evento</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Descrizione</th>
+                            <th>Campo</th>
+                            <th>Iscritti</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabellaEventiElimina"></tbody>
+                </table>
+                <button id="btn-back-to-admin" class="btn btn-secondary">Torna alla Console di Amministrazione</button>
+            </div>
         </div>
 
 
@@ -168,60 +170,63 @@
                 </button>
             </div>
 
+
         </div>
         <!-- Pagina per vedere eventi (admin) -->
         <div id="page-view-event" class="page">
-            <h2>Dettagli Evento</h2>
-            <div id="event-details">
+            <div class="login-content">
+                <h2>Dettagli Evento</h2>
+                <div id="event-details">
+                </div>
+                <div class="table-container">
+                    <div class="table-wrapper">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th>N.</th>
+                                    <th>Data</th>
+                                    <th>Ora</th>
+                                    <th>Descrizione</th>
+                                    <th>Campo</th>
+                                    <th>N° Iscritti</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabellaEventiView"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <button id="btn-back-to-events-view" class="btn btn-secondary mt-3">Torna alla console di
+                    amministrazione
+                </button>
             </div>
-            <div class="table-container">
-                <div class="table-wrapper">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="text-center">
-                            <tr>
-                                <th>N.</th>
-                                <th>Data</th>
-                                <th>Ora</th>
-                                <th>Descrizione</th>
-                                <th>Campo</th>
-                                <th>N° Iscritti</th>
-
-                            </tr>
-                        </thead>
-                        <tbody id="tabellaEventiView"></tbody>
-                    </table>
-                </div>
+            <!-- modifica eventi -->
+            <div id="page-edit-event" class="page" style="display:none">
+                <h2>Modifica Evento</h2>
+                <form id="form-edit-event">
+                    <input type="hidden" id="edit-event-id" />
+                    <div class="mb-3">
+                        <label for="edit-event-date" class="form-label">Data</label>
+                        <input type="date" class="form-control" id="edit-event-date" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-event-time" class="form-label">Ora</label>
+                        <input type="time" class="form-control" id="edit-event-time" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-event-description" class="form-label">Descrizione</label>
+                        <input type="text" class="form-control" id="edit-event-description" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="event-location" class="form-label">Campo da gioco</label>
+                        <select class="form-control" id="event-edit-location" required>
+                            <option value="">-- Seleziona un campo --</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salva Modifiche</button>
+                    <button type="button" class="btn btn-secondary" onclick="showPage('view-event')">Annulla</button>
+                </form>
             </div>
-            <button id="btn-back-to-events-view" class="btn btn-secondary mt-3">Torna alla console di
-                amministrazione
-            </button>
-        </div>
-        <!-- modifica eventi -->
-        <div id="page-edit-event" class="page" style="display:none">
-            <h2>Modifica Evento</h2>
-            <form id="form-edit-event">
-                <input type="hidden" id="edit-event-id" />
-                <div class="mb-3">
-                    <label for="edit-event-date" class="form-label">Data</label>
-                    <input type="date" class="form-control" id="edit-event-date" required />
-                </div>
-                <div class="mb-3">
-                    <label for="edit-event-time" class="form-label">Ora</label>
-                    <input type="time" class="form-control" id="edit-event-time" required />
-                </div>
-                <div class="mb-3">
-                    <label for="edit-event-description" class="form-label">Descrizione</label>
-                    <input type="text" class="form-control" id="edit-event-description" required />
-                </div>
-                <div class="mb-3">
-                    <label for="event-location" class="form-label">Campo da gioco</label>
-                    <select class="form-control" id="event-edit-location" required>
-                        <option value="">-- Seleziona un campo --</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-                <button type="button" class="btn btn-secondary" onclick="showPage('view-event')">Annulla</button>
-            </form>
         </div>
 
 
