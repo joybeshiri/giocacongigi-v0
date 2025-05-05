@@ -40,12 +40,6 @@ function showPage(page) {
     case "view-event":
       visualizzaEventi("view");
       $('#btn-logout').show();
-<<<<<<< Updated upstream
-        break;
-    case "change-password":
-            $('#btn-logout').show();
-
-=======
       $('#btn-profile').show();
       break;
     case "profile":
@@ -53,7 +47,6 @@ function showPage(page) {
       $('#btn-profile').show();
       break;
      
->>>>>>> Stashed changes
   }
 
   $("#page-" + page).show();
