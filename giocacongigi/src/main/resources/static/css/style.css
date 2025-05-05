@@ -84,13 +84,20 @@ a:hover {
 
 #social-icons {
     display: flex;
-    align-items: center;
-}
-
-#social-icons img {
-    width: 50%;
-    margin-left: 10px;
-}
+    gap: 20px;
+    margin-top: 0;
+    margin-bottom: 0px; 
+  }
+  
+  
+  #social-icons a {
+    transition: transform 0.3s ease;
+  }
+  
+  #social-icons a:hover {
+    transform: scale(1.2);
+  }
+  
 
 #footer p {
     margin: 0;
@@ -161,7 +168,7 @@ tbody tr:nth-child(even) {
 }
 
 #btn-register {
-    background-color: none;
+    background-color: transparent;
     color: white;
 }
 
