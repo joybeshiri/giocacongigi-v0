@@ -35,6 +35,10 @@ function showPage(page) {
     case "view-event":
       visualizzaEventi("view");
       $('#btn-logout').show();
+        break;
+    case "change-password":
+            $('#btn-logout').show();
+
   }
 
   $("#page-" + page).show();
@@ -486,6 +490,65 @@ function visualizzaEventiPerEliminazione() {
         }
     });
 }
+
+$('#btn-change-password').click(function () {
+  $('#page-user').hide(); // nasconde la pagina user
+  $('#change-password-form-container').show(); // mostra il form di cambio password
+});
+
+$('#cancel-change-password').click(function () {
+  $('#change-password-form-container').hide(); // nasconde il form
+  $('#page-user').show(); // ri-mostra la pagina user
+})
+
+// Nascondi il form di cambio password se l'utente annulla
+$('#cancel-change-password').click(function () {
+  $('#change-password-form-container').hide();
+});
+
+// Gestisci il submit del form di cambio password
+$('#change-password-form').submit(function (e) {
+  e.preventDefault();
+
+  const oldPassword = $('#old-password').val();
+  const newPassword = $('#new-password').val();
+  const confirmPassword = $('#confirm-password').val();
+
+  if (newPassword !== confirmPassword) {
+    alert("Le nuove password non corrispondono.");
+    return;
+  }
+
+ $.ajax({
+   url: 'http://localhost:8080/giocacongigi/api/user/change-password',
+   method: 'POST',
+   contentType: 'application/json',
+   data: JSON.stringify({
+     currentPassword: oldPassword,
+     newPassword: newPassword
+   }),
+   beforeSend: function(xhr) {
+     var token = localStorage.getItem("token");  // Ottieni il token da storage
+     if (!token) {
+       alert("Token non trovato! Autenticazione richiesta.");
+       return;  // Blocca la richiesta se non c'è il token
+     }
+     xhr.setRequestHeader("Authorization", "Bearer " + token);
+   },
+   success: function() {
+     alert("Password cambiata con successo!");
+     $('#change-password-form-container').hide();
+     $('#page-user').show();
+   },
+   error: function(xhr) {
+     alert("Errore durante il cambio password:\n" + xhr.responseText);
+   }
+ });
+ });
+
+
+
+
 
 
 
