@@ -12,6 +12,8 @@ public class PlayingFieldMapper {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
+        dto.setLatitude(entity.getLatitude());
+        dto.setLongitude(entity.getLongitude());
 
         return dto;
     }
@@ -21,6 +23,8 @@ public class PlayingFieldMapper {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
+        entity.setLatitude(dto.getLatitude());
+        entity.setLongitude(dto.getLongitude());
         
         return entity;
     }

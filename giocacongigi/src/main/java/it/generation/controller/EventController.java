@@ -178,13 +178,16 @@ import it.generation.dto.EventSubscriptionDTO;
 import it.generation.exception.BadRequestException;
 import it.generation.exception.ResourceNotFoundException;
 import it.generation.mapper.EventDetailedMapper;
+import it.generation.mapper.EventMapper;
 import it.generation.mapper.EventSubscriptionMapper;
 import it.generation.model.Event;
 import it.generation.model.EventSubscription;
+import it.generation.model.PlayingField;
 import it.generation.model.User;
 import it.generation.service.EventService;
 import it.generation.service.EventSubscriptionService;
 import it.generation.service.UserService;
+import it.generation.utils.GeoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -392,5 +395,30 @@ public class EventController {
 
         return new ResponseEntity<>("Disiscrizione avvenuta con successo", HttpStatus.OK);
     }
+
+    @GetMapping("/events-nearby")
+    public ResponseEntity<List<EventDTO>> getEventsNearby(@RequestParam Double userLat, @RequestParam Double userLon, @RequestParam Double maxDistance, @RequestParam Long user_id) {
+        List<Event> events = eventService.findAll(); // Ottieni tutti gli eventi
+
+        List<EventDTO> nearbyEvents = events.stream()
+                .filter(event -> {
+                    PlayingField field = event.getPlayingField();
+                    double distance = GeoUtils.calculateDistance(userLat, userLon, field.getLatitude(), field.getLongitude());
+                    System.out.println(distance);
+                    return distance <= maxDistance;// Filtra per distanza
+                })
+                .map(eventDetailedMapper::toDetailedDTO)
+                .map(dto->{
+                    dto.setDistance(GeoUtils.calculateDistance(userLat, userLon, dto.getPlayingField().getLatitude(), dto.getPlayingField().getLongitude()));
+                    dto.setJoinable(!dto.getUsers()
+                            .stream()
+                            .anyMatch(user -> user.getId().equals(user_id)));
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(nearbyEvents);
+    }
+
 }
 

@@ -81,13 +81,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll() // accesso a /api/auth/** senza autenticazione
                         .requestMatchers("/css/**", "/images/**", "/js/**", "/libs/**", "/index.html", "/").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs.yaml").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/events/events-nearby").permitAll() // Permette l'accesso pubblico all'endpoint
+                        .anyRequest().authenticated() // Tutte le altre richieste richiedono autenticazione
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }

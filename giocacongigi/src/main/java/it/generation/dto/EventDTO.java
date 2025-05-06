@@ -17,17 +17,22 @@ public class EventDTO {
     private String description;
     private Long playingFieldId;
 
+
     public Long getId()             { return this.id;             }
     public LocalDate getPlayDate()  { return this.playDate;       }
     public LocalTime getPlayTime()  { return this.playTime;       }
     public String getDescription()  { return this.description;    }
     public Long getPlayingFieldId() { return this.playingFieldId; }
 
+
+
+
     public void setId(Long id)                          { this.id             = id;             }
     public void setPlayDate(LocalDate playDate)         { this.playDate       = playDate;       }
     public void setPlayTime(LocalTime playTime)         { this.playTime       = playTime;       }
     public void setDescription(String description)      { this.description    = description;    }
     public void setPlayingFieldId(Long playingFieldId)  { this.playingFieldId = playingFieldId; }
+
 
     @Override
     public String toString() {
