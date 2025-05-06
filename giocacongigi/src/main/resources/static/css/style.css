@@ -54,6 +54,22 @@ a:hover {
     justify-content: center;
 }
 
+#btn-home-admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
+}
+
+
+#btn-info {
+position: absolute;
+top: 29px;
+right: 140px;
+
+}
+
 .home-label {
     font-family: 'Georgia', serif;
     font-size: 1rem;

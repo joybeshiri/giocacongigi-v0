@@ -8,6 +8,8 @@ function showPage(page) {
   $('.page').hide();
   $('#btn-logout').hide();
   $('#btn-profile').hide();
+  $('#btn-home').hide();
+  $('#btn-home-admin').hide();
   $('form').each(function() {
     this.reset();
   });
@@ -23,43 +25,51 @@ function showPage(page) {
     case "register":
       break;
     case "user":
+      $('#btn-home').show();
       //visualizzaEventi();
       getNearbyEvents(100);
       $('#btn-logout').show();
       $('#btn-profile').show();
       break;
     case "admin":
+      $('#btn-home-admin').show();
       $('#btn-logout').show();
       $('#btn-profile').show();
       break;
     case "create-event":
+      $('#btn-home-admin').show();
       $('#btn-logout').show();
       caricaCampiDaGioco();
       $('#btn-profile').show();
       break;
     case "delete-event":
+      $('#btn-home-admin').show();
       $('#btn-logout').show();
       visualizzaEventiPerEliminazione();
       $('#btn-profile').show();
        break;
     case "view-event":
+      $('#btn-home-admin').show();
       visualizzaEventi("view");
       //getNearbyEvents(100);
       $('#btn-logout').show();
       $('#btn-profile').show();
       break;
     case "profile":
+      $('#btn-home').show();
       $('#btn-logout').show();
       $('#btn-profile').show();
       break;
     case "change-password":
+      $('#btn-home').show();
       $('#btn-logout').show();
       $('#btn-profile').show();
         break;
     case "edit-event":
-        $('#btn-logout').show();
-        $('#btn-profile').show();
-       break;
+      $('#btn-home-admin').show();
+      $('#btn-logout').show();
+      $('#btn-profile').show();
+      break;
   }
 
   $("#page-" + page).show();
@@ -214,6 +224,17 @@ $(document).ready(function () {
     event.preventDefault();
     showPage("home");
   });
+  
+  $('#btn-home-admin').click(function (event) {
+    event.preventDefault();
+    showPage("admin");
+  });
+  $('#btn-info').click(function (event) {
+    event.preventDefault();
+    showPage("info");
+  });
+
+
 
 //btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
 
@@ -529,7 +550,7 @@ function visualizzaEventiPerEliminazione() {
 
 $('#btn-change-password').click(function () {
   $('#page-user').hide(); // nasconde la pagina user
-  $('#change-password-form-container').show(); // mostra il form di cambio password
+  $('#change-password-form-container').show();// mostra il form di cambio password
 });
 
 $('#cancel-change-password').click(function () {
@@ -573,8 +594,8 @@ $('#change-password-form').submit(function (e) {
    },
    success: function() {
      alert("Password cambiata con successo!");
-     $('#change-password-form-container').hide();
-     $('#page-user').show();
+     $('#page-change-password').hide();
+     $('#page-profile').show();
    },
    error: function(xhr) {
      alert("Errore durante il cambio password:\n" + xhr.responseText);
