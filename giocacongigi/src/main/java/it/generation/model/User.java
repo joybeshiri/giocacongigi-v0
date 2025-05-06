@@ -25,12 +25,22 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private Set<Event> events = new HashSet<>();
 
+    @Column(name = "is_confirmed", nullable = false)
+    private boolean isConfirmed = false; // Default: non confermato
+
+    @Column(name = "confirmation_token", unique = true)
+    private String confirmationToken;
+
+
     public Long getId()             { return this.id;       }
     public String getEmail()        { return this.email;    }
     public String getName()         { return this.name;     }
     public String getPassword()     { return this.password; }
     public String getRole()         { return this.role;     }
     public Set<Event> getEvents()   { return this.events;   }
+    public boolean isConfirmed()    { return isConfirmed; }
+    public String getConfirmationToken() { return confirmationToken; }
+
 
     public void setId(Long id)                  { this.id       = id;       }
     public void setEmail(String email)          { this.email    = email;    }
@@ -38,4 +48,6 @@ public class User {
     public void setPassword(String password)    { this.password = password; }
     public void setRole(String role)            { this.role     = role; }
     public void setEvents(Set<Event> events)    { this.events   = events;   }
+    public void setConfirmationToken(String confirmationToken) { this.confirmationToken = confirmationToken;}
+
 }

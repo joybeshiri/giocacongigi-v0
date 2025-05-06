@@ -149,7 +149,7 @@ function subscribeOrUnsubscribe(eventId, userId, action) {
     data: JSON.stringify({ eventId, userId }),
     success: function () {
       alert(message);
-      visualizzaEventi();
+      getNearbyEvents(100);
     },
     error: function (jqXHR, textStatus, errorThrown) {
       showHttpError("Errore durante Iscrizione/Disiscrizione", jqXHR, textStatus, errorThrown);
@@ -832,6 +832,12 @@ function displayEvents(events) {
      }
      cambiaSfondo();
    });
+
+
+
+
+
+
 
 
 

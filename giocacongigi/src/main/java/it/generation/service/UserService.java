@@ -9,18 +9,23 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.UUID;
+import it.generation.service.EmailService;
 
 @Service
 public class UserService {
     private final UserRepository  userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtils        jwtUtils;
+    private final EmailService    emailService; // Aggiungi questo campo
 
     @Autowired
-    public UserService(UserRepository repository, PasswordEncoder encoder, JwtUtils utils) {
+    public UserService(UserRepository repository, PasswordEncoder encoder, JwtUtils utils, EmailService emailService
+    ) {
         this.userRepository  = repository;
         this.passwordEncoder = encoder;
         this.jwtUtils        = utils;
+        this.emailService = emailService;
     }
 
     public RegisterResult register(RegisterRequest request) {
@@ -35,11 +40,23 @@ public class UserService {
             user.setRole(request.role);
             user.setPassword(passwordEncoder.encode(request.password));
 
-            return RegisterResult.success(this.userRepository.save(user));
+            // Genera un token univoco di conferma
+            String confirmationToken = UUID.randomUUID().toString();
+            user.setConfirmationToken(confirmationToken);
+
+            // Salva l'utente nel database
+            User savedUser = this.userRepository.save(user);
+
+            // Invia un'email con il link di conferma
+            emailService.sendConfirmationEmail(user.getEmail(), user.getName(), confirmationToken);
+            System.out.println("Email di conferma inviata a: " + user.getEmail());
+
+            return RegisterResult.success(savedUser);
         } catch (Exception e) {
             return RegisterResult.FAILURE;
         }
     }
+
 
     public Optional<String> authenticate(String email, String rawPassword) {
         Optional<String> token = Optional.empty();
@@ -55,6 +72,7 @@ public class UserService {
         }
         return token;
     }
+
 
     public Optional<User> getUserByEmail(String email) {
         return this.userRepository.findByEmail(email);
@@ -92,5 +110,37 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
+
+    public boolean confirmUser(String token) {
+        // Controllo di validità del token (pre-condizione)
+        if (token == null || token.isEmpty()) {
+            throw new IllegalArgumentException("Token mancante.");
+        }
+
+        // Trova l'utente basandoti sul token
+        Optional<User> optionalUser = userRepository.findByConfirmationToken(token);
+
+        if (optionalUser.isEmpty()) {
+            throw new IllegalArgumentException("Token non valido o inesistente.");
+        }
+
+        User user = optionalUser.get();
+
+        // Prevenzione: se l'utente è già confermato, solleva un'eccezione
+        if (user.getConfirmationToken() == null) {
+            throw new IllegalArgumentException("Token già usato o utente già confermato.");
+        }
+
+        // Aggiorna lo stato dell'utente
+        user.setConfirmationToken(null); // Rimuovi il token
+        user.setRole("USER"); // Imposta il ruolo o lo stato desiderato
+
+        // Effettua il salvataggio dopo tutte le validazioni
+        userRepository.save(user);
+
+        return true; // Conferma avvenuta
+    }
+
+
 
 }

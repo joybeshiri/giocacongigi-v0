@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -48,4 +50,23 @@ public class AuthController {
             .map(token -> ResponseEntity.ok(new AuthResponse(token)))
             .orElseThrow(() -> new UnauthorizedException("Credenziali non valide"));
     }
+
+    @PostMapping("/confirm")
+    public ResponseEntity<String> confirmUser(@RequestBody Map<String, String> payload) {
+        try {
+            // Estrai il token dal corpo della richiesta
+            String token = payload.get("token");
+            if (token == null || token.isEmpty()) {
+                throw new IllegalArgumentException("Token mancante.");
+            }
+
+            // Conferma l'utente
+            userService.confirmUser(token);
+            return ResponseEntity.ok("Registrazione confermata! Ora puoi accedere.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }
