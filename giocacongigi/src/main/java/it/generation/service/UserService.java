@@ -1,6 +1,7 @@
 package it.generation.service;
 
 import it.generation.dto.RegisterRequest;
+import it.generation.exception.ResourceNotFoundException;
 import it.generation.model.User;
 import it.generation.repository.UserRepository;
 import it.generation.security.JwtUtils;
@@ -80,4 +81,16 @@ public class UserService {
             return savedUser;
         }
     }
+    public void changePassword(String email, String currentPassword, String newPassword) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Utente non trovato"));
+
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new IllegalArgumentException("La password attuale non è corretta");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
 }

@@ -1,5 +1,5 @@
-const API_AUTH   = "http://localhost:8080/giocacongigi/api/auth";
-const API_USER   = "http://localhost:8080/giocacongigi/api/user";
+const API_AUTH = "http://localhost:8080/giocacongigi/api/auth";
+const API_USER = "http://localhost:8080/giocacongigi/api/user";
 const API_EVENTS = "http://localhost:8080/giocacongigi/api/events";
 
 let currentUser = null;
@@ -7,9 +7,14 @@ let currentUser = null;
 function showPage(page) {
   $('.page').hide();
   $('#btn-logout').hide();
-  $('form').each(function() {
+  $('#btn-profile').hide();
+  $('form').each(function () {
     this.reset();
   });
+
+  // Nascondi il form di cambio password se visibile
+  $('#page-change-password').hide();
+
   switch (page) {
     case "home":
       break;
@@ -20,21 +25,36 @@ function showPage(page) {
     case "user":
       visualizzaEventi();
       $('#btn-logout').show();
+      $('#btn-profile').show();
       break;
     case "admin":
       $('#btn-logout').show();
+      $('#btn-profile').show();
       break;
     case "create-event":
       $('#btn-logout').show();
       caricaCampiDaGioco();
+      $('#btn-profile').show();
       break;
-      case "delete-event":
-        $('#btn-logout').show();
-        visualizzaEventiPerEliminazione();
-        break;
+    case "delete-event":
+      $('#btn-logout').show();
+      visualizzaEventiPerEliminazione();
+      $('#btn-profile').show();
+      break;
     case "view-event":
       visualizzaEventi("view");
       $('#btn-logout').show();
+      $('#btn-profile').show();
+      break;
+    case "profile":
+      $('#btn-logout').show();
+      $('#btn-profile').show();
+      break;
+    case "change-password":
+      $('#btn-logout').show();
+      $('#btn-profile').show();
+      break;
+
   }
 
   $("#page-" + page).show();
@@ -56,9 +76,9 @@ function visualizzaEventi(view = "") {
       $(tableId).empty();
       tabellaEventi.forEach(function (event) {
         counter++;
-        let btn="";
+        let btn = "";
         if (currentUser.role == "admin") {
-         btn = "<a href='#' onclick='editEvent(" + JSON.stringify(event).replace(/'/g, "\\'") + ")' class='btn btn-warning btn-sm'>Modifica</a>";
+          btn = "<a href='#' onclick='editEvent(" + JSON.stringify(event).replace(/'/g, "\\'") + ")' class='btn btn-warning btn-sm'>Modifica</a>";
         } else {
           let action = event.joinable ? "subscribe" : "unsubscribe";
           let btn_text = event.joinable ? "iscriviti" : "annulla iscrizione";
@@ -156,12 +176,13 @@ function showHttpError(message, jqXHR, textStatus, errorThrown) {
 $(document).ready(function () {
   showPage("home");
 
-  $('#btn-home').click(function (event) { doClick(event, this.id); });
   $('#btn-login').click(function (event) { doClick(event, this.id); });
   $('#btn-register').click(function (event) { doClick(event, this.id); });
   $('#btn-logout').click(function (event) { doClick(event, this.id); });
   $('#btn-create-event').click(function (event) { doClick(event, this.id); });
   $('#btn-view-event').click(function (event) { doClick(event, this.id); });
+  $('#btn-profile').click(function (event) { doClick(event, this.id); });
+  $('#btn-change-password').click(function (event) { doClick(event, this.id); });
 
   $('#btn-create-event').click(function () {
     showPage("create-event");
@@ -175,7 +196,20 @@ $(document).ready(function () {
     event.preventDefault();
     showPage("admin");
   });
-//btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
+  $('#btn-home').click(function (event) {
+    event.preventDefault();
+    showPage("home");
+  });
+  $('#cancel-change-password').click(function (event) {
+    event.preventDefault();
+    showPage("profile");
+  });
+  $('#btn-back-to-home').click(function (event) {
+    event.preventDefault();
+    showPage("home");
+  });
+
+  //btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
 
   $('#create-event-form').submit(function (e) {
     e.preventDefault();
@@ -226,19 +260,19 @@ $(document).ready(function () {
     });
   });
 
-$(document).ready(function () {
-  // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina crea evento
-  $('#btn-back-to-events-create').click(function (event) {
-    event.preventDefault();
-    showPage("admin");  // Torna alla pagina admin (console di amministrazione)
-  });
+  $(document).ready(function () {
+    // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina crea evento
+    $('#btn-back-to-events-create').click(function (event) {
+      event.preventDefault();
+      showPage("admin");  // Torna alla pagina admin (console di amministrazione)
+    });
 
-  // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina visualizza evento
-  $('#btn-back-to-events-view').click(function (event) {
-    event.preventDefault();
-    showPage("admin");  // Torna alla pagina admin (console di amministrazione)
+    // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina visualizza evento
+    $('#btn-back-to-events-view').click(function (event) {
+      event.preventDefault();
+      showPage("admin");  // Torna alla pagina admin (console di amministrazione)
+    });
   });
-});
 
 
   function getProfile() {
@@ -262,41 +296,41 @@ $(document).ready(function () {
 });
 
 function caricaCampiDaGioco(callback) {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-    if (!token) {
-        console.error("Token mancante!");
-        alert("Token mancante! Assicurati di essere autenticato.");
-        return;
+  if (!token) {
+    console.error("Token mancante!");
+    alert("Token mancante! Assicurati di essere autenticato.");
+    return;
+  }
+
+  $.ajax({
+    url: "http://localhost:8080/giocacongigi/api/fields",
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+    success: function (data) {
+      console.log("Dati dei campi ricevuti:", data);
+
+      const selectCreate = $('#event-location');
+      const selectEdit = $('#event-edit-location');
+
+      selectCreate.empty().append('<option value="">-- Seleziona un campo --</option>');
+      selectEdit.empty().append('<option value="">-- Seleziona un campo --</option>');
+
+      data.forEach(function (campo) {
+        selectCreate.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
+        selectEdit.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
+      });
+
+      if (typeof callback === "function") {
+        callback(); // Esegui la callback dopo aver caricato i dati
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Errore durante il caricamento dei campi da gioco:", errorThrown);
+      alert("Errore nel caricamento dei campi da gioco. Per favore riprova.");
     }
-
-    $.ajax({
-        url: "http://localhost:8080/giocacongigi/api/fields",
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-        success: function (data) {
-            console.log("Dati dei campi ricevuti:", data);
-
-            const selectCreate = $('#event-location');
-            const selectEdit = $('#event-edit-location');
-
-            selectCreate.empty().append('<option value="">-- Seleziona un campo --</option>');
-            selectEdit.empty().append('<option value="">-- Seleziona un campo --</option>');
-
-            data.forEach(function (campo) {
-                selectCreate.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
-                selectEdit.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
-            });
-
-            if (typeof callback === "function") {
-                callback(); // Esegui la callback dopo aver caricato i dati
-            }
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Errore durante il caricamento dei campi da gioco:", errorThrown);
-            alert("Errore nel caricamento dei campi da gioco. Per favore riprova.");
-        }
-    });
+  });
 }
 
 
@@ -326,27 +360,27 @@ function createEvent() {
 }
 
 function deleteEvent(eventId) {
-    const token = localStorage.getItem("token");
-    if (!token || !currentUser || currentUser.role !== "admin") {
-        alert("Accesso non autorizzato.");
-        return showPage("login"); // Se l'utente non è autenticato o non è admin, lo rimandiamo al login
-    }
+  const token = localStorage.getItem("token");
+  if (!token || !currentUser || currentUser.role !== "admin") {
+    alert("Accesso non autorizzato.");
+    return showPage("login"); // Se l'utente non è autenticato o non è admin, lo rimandiamo al login
+  }
 
-    if (confirm("Sei sicuro di voler eliminare questo evento?")) {
-        // Effettuiamo la richiesta DELETE
-        $.ajax({
-            url: API_EVENTS + "/" + eventId,
-            method: "DELETE",
-            headers: { Authorization: "Bearer " + token },
-            success: function () {
-                alert("Evento eliminato con successo!");
-                visualizzaEventiPerEliminazione(); // Ricarica la lista degli eventi da eliminare
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                showHttpError("Errore durante l'eliminazione dell'evento", jqXHR, textStatus, errorThrown);
-            }
-        });
-    }
+  if (confirm("Sei sicuro di voler eliminare questo evento?")) {
+    // Effettuiamo la richiesta DELETE
+    $.ajax({
+      url: API_EVENTS + "/" + eventId,
+      method: "DELETE",
+      headers: { Authorization: "Bearer " + token },
+      success: function () {
+        alert("Evento eliminato con successo!");
+        visualizzaEventiPerEliminazione(); // Ricarica la lista degli eventi da eliminare
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        showHttpError("Errore durante l'eliminazione dell'evento", jqXHR, textStatus, errorThrown);
+      }
+    });
+  }
 }
 
 
@@ -401,11 +435,11 @@ function editEvent(event) {
 
   // Carica i campi da gioco e solo dopo imposta il valore selezionato
   caricaCampiDaGioco(function () {
-  $("#edit-event-id").val(event.id);
-  $("#edit-event-date").val(event.playDate);
-  $("#edit-event-time").val(event.playTime);
-  $("#edit-event-description").val(event.description);
-  $("#event-edit-location").val(event.playingField.id);
+    $("#edit-event-id").val(event.id);
+    $("#edit-event-date").val(event.playDate);
+    $("#edit-event-time").val(event.playTime);
+    $("#edit-event-description").val(event.description);
+    $("#event-edit-location").val(event.playingField.id);
   });
 
   showPage("edit-event");
@@ -413,57 +447,57 @@ function editEvent(event) {
 
 
 $("#form-edit-event").submit(function (e) {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
+  e.preventDefault();
+  const token = localStorage.getItem("token");
 
-    const updatedEvent = {
-        id: $("#edit-event-id").val(),
-        playDate: $("#edit-event-date").val(),
-        playTime: $("#edit-event-time").val(),
-        description: $("#edit-event-description").val(),
-        playingFieldId: $("#event-edit-location").val(), // ID campo selezionato
-    };
+  const updatedEvent = {
+    id: $("#edit-event-id").val(),
+    playDate: $("#edit-event-date").val(),
+    playTime: $("#edit-event-time").val(),
+    description: $("#edit-event-description").val(),
+    playingFieldId: $("#event-edit-location").val(), // ID campo selezionato
+  };
 
-    if (!updatedEvent.playDate || !updatedEvent.playTime || !updatedEvent.playingFieldId) {
-        alert("Per favore, completa tutti i campi obbligatori.");
-        return;
+  if (!updatedEvent.playDate || !updatedEvent.playTime || !updatedEvent.playingFieldId) {
+    alert("Per favore, completa tutti i campi obbligatori.");
+    return;
+  }
+
+  $.ajax({
+    url: API_EVENTS + "/" + updatedEvent.id, // URL per aggiornare l'evento
+    method: "PUT",
+    contentType: "application/json",
+    data: JSON.stringify(updatedEvent),
+    headers: { Authorization: "Bearer " + token },
+    success: function () {
+      alert("Evento aggiornato con successo!");
+      visualizzaEventi("view");
+      showPage("view-event");
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Errore durante l'aggiornamento dell'evento", errorThrown);
+      alert("Errore durante l'aggiornamento dell'evento.");
     }
-
-    $.ajax({
-        url: API_EVENTS + "/" + updatedEvent.id, // URL per aggiornare l'evento
-        method: "PUT",
-        contentType: "application/json",
-        data: JSON.stringify(updatedEvent),
-        headers: { Authorization: "Bearer " + token },
-        success: function () {
-            alert("Evento aggiornato con successo!");
-            visualizzaEventi("view");
-            showPage("view-event");
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Errore durante l'aggiornamento dell'evento", errorThrown);
-            alert("Errore durante l'aggiornamento dell'evento.");
-        }
-    });
+  });
 });
 
 function visualizzaEventiPerEliminazione() {
-    const token = localStorage.getItem("token");
-    if (!token || !currentUser || currentUser.role !== "admin") return showPage("login");
+  const token = localStorage.getItem("token");
+  if (!token || !currentUser || currentUser.role !== "admin") return showPage("login");
 
-    $("#loadingSpinner").show();
+  $("#loadingSpinner").show();
 
-    $.ajax({
-        url: API_EVENTS + "/joinable/" + currentUser.id,
-        method: "GET",
-        headers: { Authorization: "Bearer " + token },
-        success: function (tabellaEventi) {
-            let counter = 0;
-            $("#tabellaEventiElimina").empty();
+  $.ajax({
+    url: API_EVENTS + "/joinable/" + currentUser.id,
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+    success: function (tabellaEventi) {
+      let counter = 0;
+      $("#tabellaEventiElimina").empty();
 
-            tabellaEventi.forEach(function (event) {
-                counter++;
-                $("#tabellaEventiElimina").append(`
+      tabellaEventi.forEach(function (event) {
+        counter++;
+        $("#tabellaEventiElimina").append(`
                     <tr>
                         <td>${counter}</td>
                         <td>${event.playDate}</td>
@@ -476,16 +510,105 @@ function visualizzaEventiPerEliminazione() {
                         </td>
                     </tr>
                 `);
-            });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            showHttpError("Errore durante il caricamento degli eventi per l'eliminazione", jqXHR, textStatus, errorThrown);
-        },
-        complete: function () {
-            $("#loadingSpinner").hide();
-        }
-    });
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      showHttpError("Errore durante il caricamento degli eventi per l'eliminazione", jqXHR, textStatus, errorThrown);
+    },
+    complete: function () {
+      $("#loadingSpinner").hide();
+    }
+  });
 }
+
+$('#btn-change-password').click(function () {
+  $('#page-user').hide(); // nasconde la pagina user
+  $('#change-password-form-container').show(); // mostra il form di cambio password
+});
+
+$('#cancel-change-password').click(function () {
+  $('#change-password-form-container').hide(); // nasconde il form
+  $('#page-user').show(); // ri-mostra la pagina user
+})
+
+// Nascondi il form di cambio password se l'utente annulla
+$('#cancel-change-password').click(function () {
+  $('#change-password-form-container').hide();
+});
+
+// Gestisci il submit del form di cambio password
+$('#change-password-form').submit(function (e) {
+  e.preventDefault();
+
+  const oldPassword = $('#old-password').val();
+  const newPassword = $('#new-password').val();
+  const confirmPassword = $('#confirm-password').val();
+
+  if (newPassword !== confirmPassword) {
+    alert("Le nuove password non corrispondono.");
+    return;
+  }
+
+  $.ajax({
+    url: 'http://localhost:8080/giocacongigi/api/user/change-password',
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      currentPassword: oldPassword,
+      newPassword: newPassword
+    }),
+    beforeSend: function (xhr) {
+      var token = localStorage.getItem("token");  // Ottieni il token da storage
+      if (!token) {
+        alert("Token non trovato! Autenticazione richiesta.");
+        return;  // Blocca la richiesta se non c'è il token
+      }
+      xhr.setRequestHeader("Authorization", "Bearer " + token);
+    },
+    success: function () {
+      alert("Password cambiata con successo!");
+      $('#change-password-form-container').hide();
+      $('#page-user').show();
+    },
+    error: function (xhr) {
+      alert("Errore durante il cambio password:\n" + xhr.responseText);
+    }
+  });
+});
+
+
+$(document).ready(function () {
+  function cambiaSfondo() {
+    const ora = new Date().getHours();
+    console.log(ora);
+    if (ora >= 7 && ora < 18) {
+      $("#page-home").addClass("day");
+
+    } else {
+      $("#page-home").addClass("night");
+    }
+  }
+  cambiaSfondo();
+});
+
+
+$(document).ready(function () {
+  function cambiaSfondo() {
+    const ora = new Date().getHours();
+    console.log(ora);
+    if (ora >= 7 && ora < 18) {
+      $("#page-login").addClass("day");
+
+    } else {
+      $("#page-login").addClass("night");
+    }
+  }
+  cambiaSfondo();
+});
+
+
+
+
 
 
 
