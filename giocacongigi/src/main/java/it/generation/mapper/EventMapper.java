@@ -25,28 +25,30 @@ public class EventMapper {
         dto.setPlayDate(event.getPlayDate());
         dto.setPlayTime(event.getPlayTime());
         dto.setDescription(event.getDescription());
+
         if (event.getPlayingField() != null) {
             dto.setPlayingFieldId(event.getPlayingField().getId());
+
         }
 
         return dto;
     }
 
-    public Optional<Event> toEntity(EventDTO dto) { 
+    public Optional<Event> toEntity(EventDTO dto) {
         var event = new Event();
         event.setId(dto.getId());
         event.setPlayDate(dto.getPlayDate());
         event.setPlayTime(dto.getPlayTime());
-        event.setDescription(dto.getDescription()); 
+        event.setDescription(dto.getDescription());
 
         if (dto.getPlayingFieldId() != null) {
             Optional<PlayingField> playingField = playingFieldRepository.findById(dto.getPlayingFieldId());
-            if (playingField.isEmpty()) { 
+            if (playingField.isEmpty()) {
                 return Optional.empty();
             }
             event.setPlayingField(playingField.get());
         }
 
-        return Optional.of(event); 
+        return Optional.of(event);
     }
 }

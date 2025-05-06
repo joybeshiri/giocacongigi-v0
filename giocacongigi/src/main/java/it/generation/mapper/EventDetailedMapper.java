@@ -38,6 +38,7 @@ public class EventDetailedMapper extends EventMapper {
         eventDetailedDTO.setDescription(eventDTO.getDescription());
         eventDetailedDTO.setPlayingFieldId(eventDTO.getPlayingFieldId());
 
+
         // Mappa il campo da gioco
         PlayingFieldDTO playingFieldDTO = playingFieldMapper.toDTO(event.getPlayingField());
         eventDetailedDTO.setPlayingField(playingFieldDTO);
