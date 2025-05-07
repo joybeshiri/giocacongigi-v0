@@ -121,6 +121,7 @@ function visualizzaEventi(view = "") {
             <td>${event.playTime}</td>
             <td>${event.description}</td>
             <td>${event.playingField.name}</td>
+            <td>${event.playingField.description}</td>
             <td>${event.users.length}</td>
             <td>${btn}</td>
           </tr>
@@ -361,8 +362,8 @@ function caricaCampiDaGioco(callback) {
       selectEdit.empty().append('<option value="">-- Seleziona un campo --</option>');
 
       data.forEach(function (campo) {
-        selectCreate.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
-        selectEdit.append(`<option value="${campo.id}" title="${campo.description}">${campo.name}</option>`);
+        selectCreate.append(`<option value="${campo.id}" title="${campo.description}">${campo.name} - ${campo.description}</option>`);
+        selectEdit.append(`<option value="${campo.id}" title="${campo.description}">${campo.name} - ${campo.description}</option>`);
       });
 
       if (typeof callback === "function") {
