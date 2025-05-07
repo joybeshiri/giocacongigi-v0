@@ -1,6 +1,7 @@
 const API_AUTH = "http://localhost:8080/giocacongigi/api/auth";
 const API_USER = "http://localhost:8080/giocacongigi/api/user";
 const API_EVENTS = "http://localhost:8080/giocacongigi/api/events";
+const API_ADMIN = "http://localhost:8080/giocacongigi/giocacongigi/api/admin";
 
 let currentUser = null;
 
@@ -38,6 +39,7 @@ function showPage(page) {
       $('#btn-logout').show();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
+      loadEventStatistics();
       break;
     case "create-event":
       $('#btn-logout').show();
@@ -899,3 +901,33 @@ function visualizzaEventiUtente() {
     }
   });
 }
+
+function loadEventStatistics() {
+     const token = localStorage.getItem("token");
+     if (!token || !currentUser || currentUser.role !== "admin") {
+       alert("Accesso non autorizzato!");
+       return showPage("login");
+     }
+
+     $.ajax({
+       url: API_ADMIN + "/statistics", // Endpoint corretto per il recupero delle statistiche
+       method: "GET",
+       headers: { Authorization: "Bearer " + token },
+       success: function (statistics) {
+         // Aggiorna gli elementi HTML con i dati delle statistiche
+         $("#activeEvents").text(statistics.activeEvents);
+         $("#completedEvents").text(statistics.completedEvents);
+         $("#totalEvents").text(statistics.totalEvents);
+         $("#totalActiveSubscriptions").text(statistics.totalActiveSubscriptions);
+       },
+       error: function (jqXHR, textStatus, errorThrown) {
+         showHttpError(
+           "Errore durante il caricamento delle statistiche",
+           jqXHR,
+           textStatus,
+           errorThrown
+         );
+       }
+     });
+   }
+
