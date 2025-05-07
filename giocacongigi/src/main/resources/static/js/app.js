@@ -6,6 +6,7 @@ const API_ADMIN = "http://localhost:8080/giocacongigi/giocacongigi/api/admin";
 let currentUser = null;
 
 function showPage(page) {
+  $('.frisbee').show();
   $('.page').hide();
   $('#btn-logout').hide();
   $('#btn-profile').hide();
@@ -40,10 +41,10 @@ function showPage(page) {
       break;
     case "admin":
       $('#btn-logout').show();
-      $('#btn-profile').show();
+      $('#btn-profile').hide();
       $('#btn-home-admin').show();
       loadEventStatistics();;
-      $('#btn-info').show();
+      $('#btn-info').hide();
       break;
     case "create-event":
       caricaCampiDaGioco();
@@ -80,21 +81,21 @@ function showPage(page) {
       $('#btn-info').show();
       break;
     case "edit-event":
-      $('#btn-profile').show();
+      $('#btn-profile').hide();
       $('#btn-home-admin').show();
       $('#btn-logout').show();
       $('#btn-info').show();
       break;
     case "info":
-      $('#btn-profile').show();  
+      $('#btn-profile').show();
       $('#btn-logout').show();
-      $('#btn-info').show();
+      $('#btn-info').hide();
       if (currentUser.role == "admin") {
         $('#btn-home-admin').show();
-     }
+      }
       else {
         $('#btn-home').show();
-     }
+      }
       break;
 
   }
@@ -251,9 +252,9 @@ $(document).ready(function () {
   $('#btn-back-to-home').click(function (event) {
     event.preventDefault();
     if (currentUser.role == "admin") {
-    showPage("admin"); 
+      showPage("admin");
     } else {
-    showPage("user"); 
+      showPage("user");
     }
   });
   $("#btn-profile").on("click", function () {
@@ -270,7 +271,7 @@ $(document).ready(function () {
     showPage("home");
   });
 
- 
+
   //btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
 
   $('#create-event-form').submit(function (e) {
@@ -441,8 +442,8 @@ function deleteEvent(eventId) {
       error: function (jqXHR, textStatus, errorThrown) {
         showHttpError("Errore durante l'eliminazione dell'evento", jqXHR, textStatus, errorThrown);
       }
-     });
-     loadEventStatistics();
+    });
+    loadEventStatistics();
   }
 }
 
@@ -923,32 +924,32 @@ function visualizzaEventiUtente() {
 }
 
 function loadEventStatistics() {
-     const token = localStorage.getItem("token");
-     if (!token || !currentUser || currentUser.role !== "admin") {
-       alert("Accesso non autorizzato!");
-       return showPage("login");
-     }
+  const token = localStorage.getItem("token");
+  if (!token || !currentUser || currentUser.role !== "admin") {
+    alert("Accesso non autorizzato!");
+    return showPage("login");
+  }
 
-     $.ajax({
-       url: API_ADMIN + "/statistics", // Endpoint corretto per il recupero delle statistiche
-       method: "GET",
-       headers: { Authorization: "Bearer " + token },
-       success: function (statistics) {
+  $.ajax({
+    url: API_ADMIN + "/statistics", // Endpoint corretto per il recupero delle statistiche
+    method: "GET",
+    headers: { Authorization: "Bearer " + token },
+    success: function (statistics) {
 
-         // Aggiorna gli elementi HTML con i dati delle statistiche
-         $("#activeEvents").text(statistics.activeEvents);
-         $("#completedEvents").text(statistics.completedEvents);
-         $("#totalEvents").text(statistics.totalEvents);
-         $("#totalActiveSubscriptions").text(statistics.totalActiveSubscriptions);
-       },
-       error: function (jqXHR, textStatus, errorThrown) {
-         showHttpError(
-           "Errore durante il caricamento delle statistiche",
-           jqXHR,
-           textStatus,
-           errorThrown
-         );
-       }
-     });
-   }
+      // Aggiorna gli elementi HTML con i dati delle statistiche
+      $("#activeEvents").text(statistics.activeEvents);
+      $("#completedEvents").text(statistics.completedEvents);
+      $("#totalEvents").text(statistics.totalEvents);
+      $("#totalActiveSubscriptions").text(statistics.totalActiveSubscriptions);
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      showHttpError(
+        "Errore durante il caricamento delle statistiche",
+        jqXHR,
+        textStatus,
+        errorThrown
+      );
+    }
+  });
+}
 
