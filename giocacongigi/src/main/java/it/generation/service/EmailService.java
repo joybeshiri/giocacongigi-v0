@@ -13,14 +13,15 @@ public class EmailService {
 
 
 
-    private static final String CONFIRMATION_URL = "http://localhost:8080/api/auth/confirm?token=";
+   private static final String CONFIRMATION_URL = "http://localhost:8080/giocacongigi/api/auth/confirm?token=%s";
+
 
     @Autowired
     private JavaMailSender mailSender;
 
     public void sendConfirmationEmail(String toEmail, String name, String token) {
         String subject = "Conferma la tua registrazione";
-        String confirmationLink = CONFIRMATION_URL + token;
+        String confirmationLink = String.format(CONFIRMATION_URL, token);
         String content = "Ciao " + name + ",\n\n"
                 + "Grazie per esserti registrato. Usa il link qui sotto per confermare la tua registrazione:\n"
                 + confirmationLink + "\n\n"

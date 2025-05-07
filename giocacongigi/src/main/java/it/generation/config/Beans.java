@@ -1,5 +1,6 @@
 package it.generation.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,6 +13,7 @@ public class Beans {
     public static final String PROP_AUTH = "mail.smtp.auth";
     public static final String PROP_START_TLLS = "mail.smtp.starttls.enable";
     public static final String PROP_DEBUG = "mail.debug";
+    @Value("${spring.mail.host}")
     public static String SMTP_HOST = "smtp.gmail.com";
     public static Integer SMTP_PORT = 587;
     public static String ACCOUNT = "newgenm4f@gmail.com";
