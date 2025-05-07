@@ -352,25 +352,46 @@ tbody tr:nth-child(even) {
     background-color: grey;
 }
 
-.btn-info {
+#btn-info {
     background-color: rgb(135, 6, 155);
     color: white;
     font-family: 'Georgia', serif;
     text-transform: uppercase;
     width: 120px;
     height: 50px;
-    position: fixed;
+ /* position: fixed;
     right: 10px;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;*/
     border: none;
     cursor: pointer;
 }
 
-.btn-info:hover {
+#btn-info:hover {
     background-color: grey;
 }
+
+#btn-logout {
+    background-color: rgb(155, 6, 6);
+    color: white;
+    font-family: 'Georgia', serif;
+    text-transform: uppercase;
+    width: 120px;
+    height: 50px;
+ /* position: fixed;
+    right: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;*/
+    border: none;
+    cursor: pointer;
+}
+
+#btn-logout:hover {
+    background-color: grey;
+}
+
 
 #btn-home-admin {
     display: flex;
@@ -458,4 +479,13 @@ tbody tr:nth-child(even) {
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
+}
+
+/* Aggiunta di uno stile per evitare la sovrapposizione dei pulsanti */
+#pulsanti-container {
+    display: flex;
+    flex-direction: row; /* Disposizione orizzontale */
+    justify-content: center; /* Centra i pulsanti orizzontalmente */
+    align-items: center; /* Allinea i pulsanti verticalmente */
+    gap: 15px; /* Spaziatura tra i pulsanti */
 }

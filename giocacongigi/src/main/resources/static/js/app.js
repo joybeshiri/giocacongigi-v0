@@ -11,6 +11,8 @@ function showPage(page) {
   $('#btn-profile').hide();
   $('#btn-home').hide();
   $('#btn-home-admin').hide();
+  $('#btn-logout').hide();
+  $('#btn-info').hide();
   $('form').each(function () {
 
     this.reset();
@@ -34,55 +36,65 @@ function showPage(page) {
       $('#btn-logout').show();
       $('#btn-profile').show();
       $('#btn-home').show();
+      $('#btn-info').show();
       break;
     case "admin":
       $('#btn-logout').show();
-      $('#btn-profile').hide();
+      $('#btn-profile').show();
       $('#btn-home-admin').show();
-      loadEventStatistics();
+      loadEventStatistics();;
+      $('#btn-info').show();
       break;
     case "create-event":
-      $('#btn-logout').show();
       caricaCampiDaGioco();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
+      $('#btn-logout').show();
+      $('#btn-info').show();
       break;
     case "delete-event":
       $('#btn-logout').show();
       visualizzaEventiPerEliminazione();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
+      $('#btn-info').show();
       break;
     case "view-event":
       visualizzaEventi("view");
       //getNearbyEvents(100);
-      $('#btn-logout').show();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
+      $('#btn-logout').show();
+      $('#btn-info').show();
       break;
     case "profile":
-      $('#btn-logout').show();
       $('#btn-profile').hide();
       $('#btn-home').show();
+      $('#btn-logout').show();
+      $('#btn-info').show();
       break;
     case "change-password":
-      $('#btn-logout').show();
       $('#btn-profile').show();
       $('#btn-home').show();
+      $('#btn-logout').show();
+      $('#btn-info').show();
       break;
     case "edit-event":
-      $('#btn-logout').show();
       $('#btn-profile').show();
       $('#btn-home-admin').show();
+      $('#btn-logout').show();
+      $('#btn-info').show();
       break;
     case "info":
-    $('#btn-profile').show();  
-    if (currentUser.role == "admin") {
-      $('#btn-home-admin').show();
-    }
-    else {
-      $('#btn-home').show();
-    }
+      $('#btn-profile').show();  
+      $('#btn-logout').show();
+      $('#btn-info').show();
+      if (currentUser.role == "admin") {
+        $('#btn-home-admin').show();
+     }
+      else {
+        $('#btn-home').show();
+     }
       break;
 
   }
@@ -238,7 +250,11 @@ $(document).ready(function () {
   });
   $('#btn-back-to-home').click(function (event) {
     event.preventDefault();
-    showPage("user");
+    if (currentUser.role == "admin") {
+    showPage("admin"); 
+    } else {
+    showPage("user"); 
+    }
   });
   $("#btn-profile").on("click", function () {
     showPage("profile");
@@ -250,9 +266,11 @@ $(document).ready(function () {
   $("#btn-info").on("click", function () {
     showPage("info");
   });
+  $("#btn-logout").on("click", function () {
+    showPage("home");
+  });
 
-
-
+ 
   //btn-back-to-admin serve a tornare alla console è ripetitivo ma almeno ha un suo percorso invece di condividerlo con visualizza eventi
 
   $('#create-event-form').submit(function (e) {
