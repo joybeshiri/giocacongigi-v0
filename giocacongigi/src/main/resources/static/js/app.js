@@ -73,6 +73,16 @@ function showPage(page) {
       $('#btn-profile').show();
       $('#btn-home-admin').show();
       break;
+    case "info":
+    $('#btn-profile').show();  
+    if (currentUser.role == "admin") {
+      $('#btn-home-admin').show();
+    }
+    else {
+      $('#btn-home').show();
+    }
+      break;
+
   }
 
   $("#page-" + page).show();
