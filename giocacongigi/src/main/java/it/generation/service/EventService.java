@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
+
     public long getActiveEventsCount() {
         return eventRepository.countByPlayDateAfter(LocalDate.now());
     }
@@ -51,8 +53,13 @@ public class EventService {
     // Conta il numero totale di iscrizioni attive
     public long getTotalActiveSubscriptions() {
         return eventRepository.findAll().stream()
-                .mapToLong(event -> event.getUsers().size())
+                .filter(event -> {
+                    LocalDateTime eventDateTime = LocalDateTime.of(event.getPlayDate(), event.getPlayTime());
+                    return eventDateTime.isAfter(LocalDateTime.now()); // Evento attivo se nel futuro
+                })
+                .mapToLong(event -> event.getUsers().size()) // Conta gli utenti associati
                 .sum();
+
     }
 
 }

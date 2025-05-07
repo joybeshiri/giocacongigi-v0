@@ -934,6 +934,7 @@ function loadEventStatistics() {
        method: "GET",
        headers: { Authorization: "Bearer " + token },
        success: function (statistics) {
+
          // Aggiorna gli elementi HTML con i dati delle statistiche
          $("#activeEvents").text(statistics.activeEvents);
          $("#completedEvents").text(statistics.completedEvents);
