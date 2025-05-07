@@ -6,21 +6,6 @@ body {
     overflow: hidden;
 }
 
-.user {
-    background-image: url('../images/sfondouser.webp');
-    background-color: rgb(255, 255, 255);
-    background-size: 1550px 600px;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    justify-content: center;
-}
-
 a {
     color: white;
 }
@@ -46,38 +31,6 @@ a:hover {
     box-sizing: border-box;
 }
 
-#btn-home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    justify-content: center;
-}
-
-#btn-home-admin {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    justify-content: center;
-}
-
-
-#btn-info {
-position: absolute;
-top: 29px;
-right: 140px;
-
-}
-
-.home-label {
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    color: #f7e3ee;
-    margin-top: -10px;
-    line-height: 1.2;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
-}
 
 #content {
     position: absolute;
@@ -111,26 +64,60 @@ right: 140px;
 
 #social-icons {
     display: flex;
-    gap: 20px;
-    margin-top: 0;
-    margin-bottom: 0px; 
-  }
-  
-  
-  #social-icons a {
-    transition: transform 0.3s ease;
-  }
-  
-  #social-icons a:hover {
-    transform: scale(1.2);
-  }
-  
+    align-items: center;
+}
+
+#social-icons img {
+    width: 50%;
+    margin-left: 10px;
+}
 
 #footer p {
     margin: 0;
 }
 
+/*Sfondo user*/
+.user {
+    background-image: url('../images/sfondouser.webp');
+    background-color: rgb(255, 255, 255);
+    background-size: 1550px 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    justify-content: center;
+}
 
+/* Sfondo area cambio password*/
+.change {
+    background-image: url('../images/sfondopassword.webp');
+    background-color: rgb(255, 255, 255);
+    background-size: 1550px 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    justify-content: center;
+}
+
+.home-label {
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    color: #f7e3ee;
+    margin-top: -10px;
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/*Sfondo home generico*/
 .home-background {
     background-size: 2200px 900px;
     background-position: center;
@@ -144,6 +131,7 @@ right: 140px;
     text-align: center;
 }
 
+/*Sfondo login generico*/
 .login {
     background-size: 2200px 900px;
     background-position: center;
@@ -157,20 +145,31 @@ right: 140px;
     text-align: center;
 }
 
+/*Immagine dinamica giorno*/
 .day {
     background-image: url('../images/day.jpg');
 }
 
+/*Immagine dinamica notte*/
 .night {
     background-image: url('../images/home-backgroundamy.jpg');
 }
 
-
-
+/*Riquadro trasparente per testi*/
 .home-content {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
+}
+
+.login-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 .table-container {
@@ -186,6 +185,16 @@ right: 140px;
     overflow-x: auto;
 }
 
+.page-info-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
 table {
     border-collapse: separate;
     border-spacing: 0;
@@ -194,13 +203,13 @@ table {
 thead th {
     position: sticky;
     top: 0;
-    background: #0d6efd !important;
+    background: #be7bf5 !important;
     color: white;
     z-index: 20;
 }
 
 thead {
-    background: #0d6efd;
+    background: #be7bf5 !important;
 }
 
 tbody tr:nth-child(even) {
@@ -211,36 +220,45 @@ tbody tr:nth-child(even) {
     display: none;
 }
 
-#btn-login {
+/*pulsanti*/
+
+.btn-click {
     background-color: rgb(135, 6, 155);
     color: white;
     border: none;
 }
 
+.btn-click:hover {
+    background-color: grey;
+}
+
 #btn-register {
-    background-color: transparent;
+    background-color: none;
     color: white;
 }
 
 #btn-register:hover {
-    background-color: none;
     color: rgb(135, 6, 155);
 }
 
-.login-content {
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+#btn-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
 }
+
+
 
 .btn-primary {
     background-color: rgb(135, 6, 155);
     color: white;
     border: none;
+}
+
+.btn-primary:hover {
+    background-color: grey;
 }
 
 
@@ -291,18 +309,6 @@ tbody tr:nth-child(even) {
     font-size: 16px;
 }
 
-.admin-button {
-    padding: 6px 12px;
-    background-color: rgb(135, 6, 155);
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.admin-button:hover {
-    background-color: grey;
-}
 
 .btn-primary {
     background-color: rgb(135, 6, 155);
@@ -313,18 +319,6 @@ tbody tr:nth-child(even) {
 }
 
 .btn-primary:hover {
-    background-color: grey;
-}
-
-.btn-secondary {
-    background-color: rgb(135, 6, 155);
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-secondary:hover {
     background-color: grey;
 }
 
@@ -340,6 +334,18 @@ tbody tr:nth-child(even) {
     background-color: grey;
 }
 
+.btn-clickred {
+    background-color: rgb(147, 5, 5);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-clickred:hover {
+    background-color: grey;
+}
+
 .btn-info {
     background-color: rgb(135, 6, 155);
     color: rgb(255, 255, 255);
@@ -350,4 +356,19 @@ tbody tr:nth-child(even) {
 
 .btn-info:hover {
     background-color: grey;
+}
+
+#btn-home-admin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    justify-content: center;
+}
+
+#btn-info {
+    position: absolute;
+    top: 29px;
+    right: 140px;
+
 }
