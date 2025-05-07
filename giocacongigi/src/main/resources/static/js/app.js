@@ -24,7 +24,7 @@ function showPage(page) {
       $('#btn-home').hide();
       break;
     case "login":
-      $('#btn-home').show();
+      $('#btn-home').hide();
       break;
     case "register":
       break;
