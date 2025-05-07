@@ -423,7 +423,8 @@ function deleteEvent(eventId) {
       error: function (jqXHR, textStatus, errorThrown) {
         showHttpError("Errore durante l'eliminazione dell'evento", jqXHR, textStatus, errorThrown);
       }
-    });
+     });
+     loadEventStatistics();
   }
 }
 
