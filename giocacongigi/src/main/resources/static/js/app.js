@@ -339,23 +339,15 @@ $(document).ready(function () {
 
 
   function getProfile() {
-    console.log('getProfile chiamata'); // Verifica se la funzione viene chiamata
     const token = localStorage.getItem("token");
     if (!token) return showPage("login");
-  
+
     $.ajax({
       url: API_USER + "/me",
       method: "GET",
       headers: { Authorization: "Bearer " + token },
       success: function (user) {
-        console.log('currentUser:', user); // Verifica il contenuto dell'oggetto user
         currentUser = user;
-        const usernameElement = document.getElementById('user-username');
-        if (usernameElement && currentUser.name) {
-          usernameElement.textContent = currentUser.name;
-        } else {
-          console.error("Impossibile trovare l'elemento username o la proprietà username nell'oggetto utente.");
-        }
         showPage(currentUser.role);
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -363,7 +355,8 @@ $(document).ready(function () {
         logout();
       }
     });
-  }});;
+  }
+});
 
 function caricaCampiDaGioco(callback) {
   const token = localStorage.getItem("token");
