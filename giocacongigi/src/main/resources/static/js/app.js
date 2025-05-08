@@ -45,12 +45,8 @@ function showPage(page) {
       $('#btn-logout').show();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
-<<<<<<< Updated upstream
       loadEventStatistics();;
       $('#btn-info').hide();
-=======
-      loadEventStatistics();;     ;
->>>>>>> Stashed changes
       break;
     case "create-event":
       caricaCampiDaGioco();
