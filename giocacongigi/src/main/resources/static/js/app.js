@@ -6,7 +6,7 @@ const API_ADMIN = "http://localhost:8080/giocacongigi/giocacongigi/api/admin";
 let currentUser = null;
 
 function showPage(page) {
-  $('.frisbee').show();
+  $('.frisbee').hide();
   $('.page').hide();
   $('#btn-logout').hide();
   $('#btn-profile').hide();
@@ -24,9 +24,11 @@ function showPage(page) {
 
   switch (page) {
     case "home":
+      $('.frisbee').show();
       $('#btn-home').hide();
       break;
     case "login":
+      $('.frisbee').show();
       $('#btn-home').hide();
       break;
     case "register":
@@ -886,6 +888,7 @@ $(document).ready(function () {
   cambiaSfondo();
 });
 
+//visualizzare gli eventi
 function visualizzaEventiUtente() {
   const token = localStorage.getItem("token");
   if (!token || !currentUser) return showPage("login");
