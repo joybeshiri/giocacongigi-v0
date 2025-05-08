@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Georgia', serif;
 }
 
 a {
@@ -227,14 +228,14 @@ a:hover {
 
 .login-content-admin {
     background-color: rgba(0, 0, 0, 0.7);
+    width: 800;
+    height: 900;
     padding: 20px;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-
 }
 
 
@@ -266,26 +267,38 @@ tbody tr:nth-child(even) {
 /*pulsanti*/
 
 .btn-click {
-    background-color: rgb(135, 6, 155);
+    background-color: #e6aae6;
     color: white;
-    font-family: 'Georgia', serif;
-    text-transform: uppercase;
+    font-size: 12px;
     width: 120px;
     height: 50px;
+    border-width: 3px;
+    border-color: #e6aae6;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #e6aae6;
+    text-shadow: 0px 0px 0px #e1e2ed;
+    background-color: rgb(135, 6, 155);
+    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    vertical-align: middle;
+    color: white;
+
 }
 
 .btn-click:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 #btn-register {
     background-color: none;
     color: white;
-    font-family: 'Georgia', serif;
     text-transform: uppercase;
 }
 
@@ -302,97 +315,153 @@ tbody tr:nth-child(even) {
 }
 
 .btn-primary {
-    background-color: rgb(135, 6, 155);
-    color: white;
-    font-family: 'Georgia', serif;
-    text-transform: uppercase;
+    font-size: 12px;
     width: 120px;
     height: 50px;
+    border-width: 3px;
+    border-color: #e6aae6;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #e6aae6;
+    text-shadow: 0px 0px 0px #e1e2ed;
+    background-color: rgb(135, 6, 155);
+    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    vertical-align: middle;
+    color: white;
 }
 
 .btn-primary:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 
 .btn-danger {
-    background-color: rgb(147, 5, 5);
-    color: rgb(255, 255, 255);
-    font-family: 'Georgia', serif;
-    text-transform: uppercase;
+    font-size: 12px;
     width: 120px;
     height: 50px;
+    border-width: 3px;
+    border-color: #ed4f69;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #ed4f69;
+    text-shadow: 0px 0px 0px #e1e2ed;
+    background-color: rgb(147, 5, 5);
+    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    vertical-align: middle;
+    color: white;
     cursor: pointer;
 }
 
 .btn-danger:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 .btn-clickred {
-    background-color: rgb(147, 5, 5);
-    color: rgb(255, 255, 255);
-    font-family: 'Georgia', serif;
-    text-transform: uppercase;
+    font-size: 12px;
     width: 120px;
     height: 50px;
+    border-width: 3px;
+    border-color: #ed4f69;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #ed4f69;
+    text-shadow: 0px 0px 0px #e1e2ed;
+    background-color: rgb(147, 5, 5);
+    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    vertical-align: middle;
+    color: white;
     cursor: pointer;
 }
 
 .btn-clickred:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 #btn-info {
-    background-color: rgb(135, 6, 155);
-    color: white;
-    font-family: 'Georgia', serif;
-    text-transform: uppercase;
+    font-size: 12px;
     width: 120px;
     height: 50px;
+    border-width: 3px;
+    border-color: #e6aae6;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #e6aae6;
+    text-shadow: 0px 0px 0px #e1e2ed;
+    background-color: rgb(135, 6, 155);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    color: white;
     /* position: fixed;
     right: 10px;
     display: inline-flex;
     align-items: center;
     justify-content: center;*/
-    border: none;
-    cursor: pointer;
+
 }
 
 #btn-info:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 #btn-logout {
-    background-color: rgb(155, 6, 6);
-    color: white;
-    font-family: 'Georgia', serif;
-    text-transform: uppercase;
+    font-size: 12px;
     width: 120px;
     height: 50px;
+    border-width: 3px;
+    border-color: #ed4f69;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #ed4f69;
+    text-shadow: 0px 0px 0px #e1e2ed;
+    background-color: rgb(147, 5, 5);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    color: white;
+    cursor: pointer;
     /* position: fixed;
     right: 10px;
     display: inline-flex;
     align-items: center;
     justify-content: center;*/
-    border: none;
-    cursor: pointer;
 }
 
 #btn-logout:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 
@@ -410,52 +479,88 @@ tbody tr:nth-child(even) {
 }
 
 .btn-warning {
-    background-color: rgb(255, 217, 0);
-    color: white;
-    font-family: 'Georgia', serif;
-    text-transform: uppercase;
+    font-size: 12px;
     width: 120px;
     height: 50px;
+    border-width: 3px;
+    border-color: #f0eb4b;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #f0eb4b;
+    text-shadow: 0px 0px 0px #e1e2ed;
+    background-color: rgb(200, 172, 12);
+    text-transform: uppercase;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    vertical-align: middle;
+    color: white;
     cursor: pointer;
+}
+
+.btn-warning:hover {
+    background-color: grey;
+    border-color: grey;
 }
 
 
 .btn-a {
+    font-size: 12px;
+    width: 120px;
+    height: 50px;
+    border-width: 3px;
+    border-color: #e6aae6;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #e6aae6;
+    text-shadow: 0px 0px 0px #e1e2ed;
     background-color: rgb(135, 6, 155);
-    color: white;
-    font-family: 'Georgia', serif;
     text-transform: uppercase;
-    width: 140px;
-    height: 60px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    vertical-align: middle;
+    color: white;
 
 }
 
 .btn-a:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 .btn-b {
+    font-size: 12px;
+    width: 120px;
+    height: 50px;
+    border-width: 3px;
+    border-color: #e6aae6;
+    font-weight: bold;
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-shadow: 0px 8px 4px 1px #e6aae6;
+    text-shadow: 0px 0px 0px #e1e2ed;
     background-color: rgb(135, 6, 155);
-    color: white;
-    font-family: 'Georgia', serif;
     text-transform: uppercase;
-    width: 140px;
-    height: 60px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
+    vertical-align: middle;
+    color: white;
 
 }
 
 .btn-b:hover {
     background-color: grey;
+    border-color: grey;
 }
 
 /*Sfondo admin con allineamento pulsanti*/
@@ -531,6 +636,8 @@ tbody tr:nth-child(even) {
     width: 380px;
     height: 380px;
     text-align: left;
+    vertical-align: middle;
+    justify-items: center;
 }
 
 /* Aggiunta di uno stile per evitare la sovrapposizione dei pulsanti */
@@ -547,31 +654,110 @@ tbody tr:nth-child(even) {
 }
 
 /*immagine frisbee*/
+.container-frisbee {
+    position: relative;
+    width: 100vw;
+    height: 100vw;
+}
 
 .frisbee {
-    width: 50px;
-    height: 10px;
-    background: radial-gradient(circle at center, rgb(135, 6, 155), #f7e3ee);
-    border-radius: 50%;
     position: absolute;
-    animation: moveFrisbee 6s linear infinite;
+    top: 50%;
+    right: -100px;
+    transform: translateY(-50%);
+    animation: moveFrisbee 5s linear;
 }
 
 @keyframes moveFrisbee {
-    0% {
-        left: -30%;
-        top: 10%;
-        transform: rotate(180deg);
+    to {
+        right: 110%;
     }
+}
 
-    50% {
-        top: 40%;
-        transform: rotate(180deg);
-    }
+.scritta {
+    color: #faf4f4;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    display: flex;
+}
 
-    100% {
-        left: 100vw;
-        top: 70%;
-        transform: rotate(180deg);
+.scritta span {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: revealScritta 2s forwards;
+}
+
+/* Ritardo progressivo per ogni lettera */
+.scritta span:nth-child(16) {
+    animation-delay: 1.9s;
+}
+
+.scritta span:nth-child(15) {
+    animation-delay: 1.95s;
+}
+
+.scritta span:nth-child(14) {
+    animation-delay: 2s;
+}
+
+.scritta span:nth-child(13) {
+    animation-delay: 2.05s;
+}
+
+.scritta span:nth-child(12) {
+    animation-delay: 2.1s;
+}
+
+.scritta span:nth-child(11) {
+    animation-delay: 2.15s;
+}
+
+.scritta span:nth-child(10) {
+    animation-delay: 2.2s;
+}
+
+.scritta span:nth-child(9) {
+    animation-delay: 2.25s;
+}
+
+.scritta span:nth-child(8) {
+    animation-delay: 2.3s;
+}
+
+.scritta span:nth-child(7) {
+    animation-delay: 2.35s;
+}
+
+.scritta span:nth-child(6) {
+    animation-delay: 2.4s;
+}
+
+.scritta span:nth-child(5) {
+    animation-delay: 2.45s;
+}
+
+.scritta span:nth-child(4) {
+    animation-delay: 2.5s;
+}
+
+.scritta span:nth-child(3) {
+    animation-delay: 2.55s;
+}
+
+.scritta span:nth-child(2) {
+    animation-delay: 2.6s;
+}
+
+.scritta span:nth-child(1) {
+    animation-delay: 2.65s;
+}
+
+@keyframes revealScritta {
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

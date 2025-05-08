@@ -18,8 +18,31 @@
             <img src="./images/logo2amy.png" alt="Logo">
             <span class="home-label">Home</span>
         </a>
-        <title>Frisbee in movimento></title>
-        <div class="frisbee">
+        <div class="container-frisbee">
+            <title>Frisbee in movimento></title>
+            <div class="frisbee">
+                <img src="./images/logo2amy.png" alt="Logo">
+            </div>
+        </div>
+        <div>
+            <div class="scritta">
+                <span>U</span>
+                <span>L</span>
+                <span>T</span>
+                <span>I</span>
+                <span>M</span>
+                <span>A</span>
+                <span>T</span>
+                <span>E</span>
+                <span> <img src="./images/logo2amy.png"> </span>
+                <span>F</span>
+                <span>R</span>
+                <span>I</span>
+                <span>S</span>
+                <span>B</span>
+                <span>E</span>
+                <span>E</span>
+            </div>
         </div>
         <a href="#" id="btn-home-admin">
             <img src="./images/logo2amy.png" alt="Logo">
@@ -85,21 +108,25 @@
             <div id="page-delete-event" class="page admin" style="display:none;">
                 <div class="login-content">
                     <h2>Elimina Evento</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Data</th>
-                                <th>Ora</th>
-                                <th>Descrizione</th>
-                                <th>Campo</th>
-                                <th>Iscritti</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabellaEventiElimina"></tbody>
-                    </table>
-                    <button id="btn-back-to-admin" class="btn btn-click">Indietro</button>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Data</th>
+                                        <th>Ora</th>
+                                        <th>Descrizione</th>
+                                        <th>Campo</th>
+                                        <th>Iscritti</th>
+                                        <th>Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabellaEventiElimina"></tbody>
+                            </table>
+                        </div>
+                        <button id="btn-back-to-admin" class="btn btn-click">Indietro</button>
+                    </div>
                 </div>
             </div>
 
@@ -180,28 +207,28 @@
             </div>
 
             <!-- Pagina per l'amministratore -->
-            <div id="page-admin" class="page admin">
+            <div id="page-admin" class="page admin1">
                 <div id="table-container" class="table-admin">
                     <h2>CONSOLE DI AMMINISTRAZIONE</h2>
                     <div class="button-container">
                         <div class="riga">
-                            <label for="create-event" class="descrizione"><b>Crea Evento</b></label>
+                            <label for="create-event" class="descrizione">Crea Evento</label>
                             <button type="button" id="btn-create-event" class="btn-click">Crea</button>
                         </div>
                         <br><br>
                         <div class="riga">
-                            <label for="delete-event" class="descrizione"><b>Elimina Evento</b></label>
+                            <label for="delete-event" class="descrizione">Elimina Evento</label>
                             <button type="button" id="btn-delete-event" class="btn-click">Elimina</button>
                         </div>
                         <br><br>
                         <div class="riga">
-                            <label for="view-event" class="descrizione"><b>Visualizza Eventi</b></label>
+                            <label for="view-event" class="descrizione">Visualizza Eventi</label>
                             <button type="button" id="btn-view-event" class="btn-click">View</button>
                         </div>
                     </div>
                 </div>
                 <div id="striped-content" class="table-striped1">
-                    <h3>STATISTICHE EVENTI</h3>
+                    <h2>STATISTICHE EVENTI</h2>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -289,9 +316,9 @@
                             <tbody id="tabellaEventiView"></tbody>
                         </table>
                     </div>
+                    <button id="btn-back-to-events-view" class="btn btn-click">Indietro
+                    </button>
                 </div>
-                <button id="btn-back-to-events-view" class="btn btn-click">Indietro
-                </button>
             </div>
         </div>
 
