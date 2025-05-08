@@ -122,6 +122,11 @@ function visualizzaEventi(view = "") {
       let counter = 0;
       let tableId = (view === "view") ? "#tabellaEventiView" : "#tabellaEventi";
       $(tableId).empty();
+      tabellaEventi.sort((a, b) => {
+              const dateA = new Date(`${a.playDate}T${a.playTime}`);
+              const dateB = new Date(`${b.playDate}T${b.playTime}`);
+              return dateA - dateB; // Ordina cronologicamente (dal più vicino al più lontano)
+            });
       tabellaEventi.forEach(function (event) {
         counter++;
         let btn = "";
@@ -579,6 +584,12 @@ function visualizzaEventiPerEliminazione() {
     method: "GET",
     headers: { Authorization: "Bearer " + token },
     success: function (tabellaEventi) {
+    // Ordina eventi cronologicamente
+          tabellaEventi.sort((a, b) => {
+            const dateA = new Date(`${a.playDate}T${a.playTime}`);
+            const dateB = new Date(`${b.playDate}T${b.playTime}`);
+            return dateA - dateB;
+          });
       let counter = 0;
       $("#tabellaEventiElimina").empty();
 
@@ -822,7 +833,11 @@ function displayEvents(events) {
     return;
   }
 
-
+events.sort((a, b) => {
+    const dateA = new Date(`${a.playDate}T${a.playTime}`);
+    const dateB = new Date(`${b.playDate}T${b.playTime}`);
+    return dateA - dateB; // Ordina dal più vicino al più lontano
+  });
 
   const now = new Date(); // Ottieni l'orario attuale
 
@@ -922,8 +937,14 @@ function visualizzaEventiUtente() {
     headers: { Authorization: "Bearer " + token },
     success: function (eventi) {
       const eventiUtente = eventi.filter(event => !event.joinable);
-      $("#user-events").empty();
 
+            eventiUtente.sort((a, b) => {
+              const dateA = new Date(`${a.playDate}T${a.playTime}`);
+              const dateB = new Date(`${b.playDate}T${b.playTime}`);
+              return dateA - dateB; // Ordina dal più vicino al più lontano
+            });
+
+      $("#user-events").empty();
       let counter = 0;
       eventiUtente.forEach(event => {
         counter++;
