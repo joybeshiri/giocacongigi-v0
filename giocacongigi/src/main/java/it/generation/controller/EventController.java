@@ -194,6 +194,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -258,9 +259,16 @@ public class EventController {
     @GetMapping("/joinable/{user_id}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<EventDetailedDTO>> getEventJoanableByUser(@PathVariable Long user_id) {
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
         return ResponseEntity.ok(eventService.findAll()
                 .stream()
-                .filter(event -> event.getPlayDate().isAfter(LocalDate.now()))
+                .filter(event -> {
+                    if (event.getPlayDate().isEqual(LocalDate.now())) {
+                        return event.getPlayTime().isAfter(LocalTime.now()); // Solo eventi nel futuro oggi
+                    }
+                    return !event.getPlayDate().isBefore(LocalDate.now()); // Eventi di oggi e futuri
+                })
                 .map(eventDetailedMapper::toDetailedDTO)
                 .map(dto -> {
                     dto.setJoinable(!dto.getUsers()

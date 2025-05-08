@@ -37,10 +37,18 @@ public class EventService {
 
 
     public long getActiveEventsCount() {
-        return eventRepository.countByPlayDateAfter(LocalDate.now());
+        return eventRepository.findAll().stream()
+                .filter(event -> {
+                    // Combina la data e l'ora dell'evento
+                    LocalDateTime eventDateTime = LocalDateTime.of(event.getPlayDate(), event.getPlayTime());
+                    // Modifica la condizione per includere eventi nello stesso istante
+                    return eventDateTime.isAfter(LocalDateTime.now()) || eventDateTime.isEqual(LocalDateTime.now());
+                })
+                .count(); // Conta il numero di eventi che soddisfano la condizione
     }
 
-    // Conta gli eventi completati (passati)
+
+        // Conta gli eventi completati (passati)
     public long getCompletedEventsCount() {
         return eventRepository.countByPlayDateBefore(LocalDate.now());
     }
