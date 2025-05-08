@@ -246,10 +246,14 @@ $(document).ready(function () {
     event.preventDefault();
     showPage("admin");
   });
-  $('#btn-home').click(function (event) {
-    event.preventDefault();
-    showPage("user");
+  $("#btn-home").on("click", function () {
+    if (currentUser && currentUser.role === "admin") {
+      showPage("admin");
+    } else {
+      showPage("user");
+    }
   });
+  
   $('#cancel-change-password').click(function (event) {
     event.preventDefault();
     showPage("profile");
@@ -264,8 +268,14 @@ $(document).ready(function () {
   });
   $("#btn-profile").on("click", function () {
     showPage("profile");
-    visualizzaEventiUtente(); // aggiorna la tabella con gli eventi iscritti
+    if (!currentUser) {
+      getProfile();
+    } else {
+      document.getElementById('user-username').textContent = currentUser.name;
+    }
+    visualizzaEventiUtente();
   });
+  
   $("#btn-home-admin").on("click", function () {
     showPage("admin");
   });
