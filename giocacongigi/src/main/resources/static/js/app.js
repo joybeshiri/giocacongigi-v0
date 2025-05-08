@@ -45,48 +45,56 @@ function showPage(page) {
       $('#btn-logout').show();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
+<<<<<<< Updated upstream
       loadEventStatistics();;
       $('#btn-info').hide();
+=======
+      loadEventStatistics();;     ;
+>>>>>>> Stashed changes
       break;
     case "create-event":
       caricaCampiDaGioco();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
       $('#btn-logout').show();
-      $('#btn-info').show();
       break;
     case "delete-event":
       $('#btn-logout').show();
       visualizzaEventiPerEliminazione();
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
-      $('#btn-info').show();
       break;
     case "view-event":
       visualizzaEventi("view");
       //getNearbyEvents(100);
-      $('#btn-profile').hide();
+      $('#btn-profile').show();
       $('#btn-home-admin').show();
       $('#btn-logout').show();
-      $('#btn-info').show();
       break;
     case "profile":
       $('#btn-profile').hide();
       $('#btn-home').show();
       $('#btn-logout').show();
+      if (currentUser.role == "admin") {
+      }
+      else {
       $('#btn-info').show();
+    }
       break;
     case "change-password":
       $('#btn-profile').show();
       $('#btn-home').show();
       $('#btn-logout').show();
+      if (currentUser.role == "admin") {
+      }
+      else {
       $('#btn-info').show();
+     }
       break;
     case "edit-event":
       $('#btn-profile').hide();
       $('#btn-home-admin').show();
       $('#btn-logout').show();
-      $('#btn-info').show();
       break;
     case "info":
       $('#btn-profile').show();
@@ -99,8 +107,7 @@ function showPage(page) {
         $('#btn-home').show();
       }
       break;
-
-  }
+   }
 
   $("#page-" + page).show();
 }

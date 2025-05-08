@@ -190,7 +190,11 @@ a:hover {
 .page-info-content {
     background-color: rgba(0, 0, 0, 0.7);
     width: 1200px;
+<<<<<<< Updated upstream
     height: 600px;
+=======
+    height: 620px;
+>>>>>>> Stashed changes
     padding: 20px;
     border-radius: 10px;
     margin-top: 15px;
