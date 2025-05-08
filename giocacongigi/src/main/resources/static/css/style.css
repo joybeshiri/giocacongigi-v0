@@ -459,6 +459,23 @@ tbody tr:nth-child(even) {
 /*Sfondo admin con allineamento pulsanti*/
 .admin {
     background-image: url('../images/ultimate-ali.jpg');
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 255);
+    background-size: 1550px 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+
+}
+
+
+.admin1 {
+    background-image: url('../images/ultimate-ali.jpg');
     background-size: 1900px 800px;
     background-position: center;
     background-repeat: no-repeat;
@@ -469,6 +486,8 @@ tbody tr:nth-child(even) {
     color: rgb(255, 255, 255);
     text-align: center;
 }
+
+
 
 .table-admin {
     background-color: rgba(0, 0, 0, 0.7);
@@ -538,7 +557,7 @@ tbody tr:nth-child(even) {
 
 @keyframes moveFrisbee {
     0% {
-        left: -60%;
+        left: -30%;
         top: 10%;
         transform: rotate(180deg);
     }
