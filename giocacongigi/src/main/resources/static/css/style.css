@@ -761,3 +761,13 @@ tbody tr:nth-child(even) {
         transform: translateX(0);
     }
 }
+
+
+
+.modal-backdrop {
+
+    background-color:transparent !important;
+    pointer-events: none; }
+    
+  .modal {
+    pointer-events: all;   z-index: 1055; }

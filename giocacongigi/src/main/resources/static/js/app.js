@@ -5,6 +5,17 @@ const API_ADMIN = "http://localhost:8080/giocacongigi/giocacongigi/api/admin";
 
 let currentUser = null;
 
+function cambiaSfondo(page) {
+  const ora = new Date().getHours();
+  console.log(ora);
+  if (ora >= 7 && ora < 18) {
+    $(page).addClass("day");
+
+  } else {
+    $(page).addClass("night");
+  }
+}
+
 function showPage(page) {
   $('.frisbee').hide();
   $('.page').hide();
@@ -24,10 +35,12 @@ function showPage(page) {
 
   switch (page) {
     case "home":
+      cambiaSfondo("#page-home");
       $('.frisbee').show();
       $('#btn-home').hide();
       break;
     case "login":
+      cambiaSfondo("#page-login");
       $('.frisbee').show();
       $('#btn-home').hide();
       break;
@@ -93,6 +106,7 @@ function showPage(page) {
       $('#btn-logout').show();
       break;
     case "info":
+      cambiaSfondo("#page-info");
       $('#btn-profile').show();
       $('#btn-logout').show();
       $('#btn-info').hide();
@@ -104,6 +118,18 @@ function showPage(page) {
       }
       break;
    }
+
+   // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina crea evento
+   $('#btn-back-to-events-create').click(function (event) {
+    event.preventDefault();
+    showPage("admin");  // Torna alla pagina admin (console di amministrazione)
+  });
+
+  // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina visualizza evento
+  $('#btn-back-to-events-view').click(function (event) {
+    event.preventDefault();
+    showPage("admin");  // Torna alla pagina admin (console di amministrazione)
+  });
 
   $("#page-" + page).show();
 }
@@ -342,21 +368,6 @@ $(document).ready(function () {
       }
     });
   });
-
-  $(document).ready(function () {
-    // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina crea evento
-    $('#btn-back-to-events-create').click(function (event) {
-      event.preventDefault();
-      showPage("admin");  // Torna alla pagina admin (console di amministrazione)
-    });
-
-    // Gestione del click per il pulsante "Torna alla console di amministrazione" nella pagina visualizza evento
-    $('#btn-back-to-events-view').click(function (event) {
-      event.preventDefault();
-      showPage("admin");  // Torna alla pagina admin (console di amministrazione)
-    });
-  });
-
 
   function getProfile() {
     console.log('getProfile chiamata'); // Verifica se la funzione viene chiamata
@@ -879,50 +890,6 @@ events.sort((a, b) => {
 
   console.log("Tabella aggiornata con nuovi eventi.");
 }
-
-$(document).ready(function () {
-  function cambiaSfondo() {
-    const ora = new Date().getHours();
-    console.log(ora);
-    if (ora >= 7 && ora < 18) {
-      $("#page-home").addClass("day");
-
-    } else {
-      $("#page-home").addClass("night");
-    }
-  }
-  cambiaSfondo();
-});
-
-
-$(document).ready(function () {
-  function cambiaSfondo() {
-    const ora = new Date().getHours();
-    console.log(ora);
-    if (ora >= 7 && ora < 18) {
-      $("#page-login").addClass("day");
-
-    } else {
-      $("#page-login").addClass("night");
-    }
-  }
-  cambiaSfondo();
-});
-
-
-$(document).ready(function () {
-  function cambiaSfondo() {
-    const ora = new Date().getHours();
-    console.log(ora);
-    if (ora >= 7 && ora < 18) {
-      $("#page-info").addClass("day");
-
-    } else {
-      $("#page-info").addClass("night");
-    }
-  }
-  cambiaSfondo();
-});
 
 //visualizzare gli eventi
 function visualizzaEventiUtente() {
